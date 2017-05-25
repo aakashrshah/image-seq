@@ -11,8 +11,10 @@ function SchoolStore() {
     var image1src = path + image1name + ext;
     var image2src = path + image2name + ext;
 
+    var id = 1;
 
     var question = {
+        id : id,
         image1:{ 
             name: "Image-1",
             src:  image1src 
@@ -21,7 +23,9 @@ function SchoolStore() {
             name: "Image-2", 
             src:  image2src
         },
-        answer: image1name>image2name ? true:false
+        answer: image1name > image2name ? false:true,
+        choice: "",
+        workerID : ""
     }
 
     function getQuestion() {
