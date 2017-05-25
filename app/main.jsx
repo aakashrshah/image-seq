@@ -11,8 +11,9 @@ schoolsStore.onChange(function(question){
 });
 
 function render(){
-    ReactDOM.render( 
-        <SchoolsList  question={_question} />, document.getElementById("container"));    
+    console.log(_question);
+    ReactDOM.render(
+        <SchoolsList  question={_question.questions} activeIndex={_question.activeIndex} />, document.getElementById("container"));
 	}
 
 render();

@@ -7,26 +7,44 @@ function SchoolStore() {
 
     var image1name = 1234567;
     var image2name = 891011;
+    var image3name = 12345;
 
     var image1src = path + image1name + ext;
     var image2src = path + image2name + ext;
+    var image3src = path + image2name + ext;
 
     var id = 1;
 
-    var question = {
+    var question = {questions: [{
         id : id,
-        image1:{ 
+        image1:{
             name: "Image-1",
-            src:  image1src 
+            src:  image1src
         },
         image2:{
-            name: "Image-2", 
+            name: "Image-2",
             src:  image2src
         },
         answer: image1name > image2name ? false:true,
         choice: "",
         workerID : ""
-    }
+    },
+    {
+        id : 2,
+        image1:{
+            name: "Image-2",
+            src:  image2src
+        },
+        image2:{
+            name: "Image-3",
+            src:  image3src
+        },
+        answer: image1name > image2name ? false:true,
+        choice: "",
+        workerID : ""
+    }],
+    activeIndex: 0
+  }
 
     function getQuestion() {
         return question;
@@ -36,10 +54,14 @@ function SchoolStore() {
         listeners.push(listener);
     }
 
-    // function addSchool(school) {
-    //     schools.push(school)
-    //     triggerListeners();
-    // }
+    function addChoice(index, choice) {
+        // schools.push(school)
+        // triggerListeners();
+        console.log(index, choice);
+        question.questions[index].choice = choice;
+        question.activeIndex = index + 1;
+        triggerListeners();
+    }
 
     // function deleteSchool(school) {
     //     var _index;
@@ -60,14 +82,13 @@ function SchoolStore() {
 
     dispatcher.register(function (payload) {
         var split = payload.type.split(":");
-        if (split[0] === "school") {
+        if (split[0] === "question") {
             switch (split[1]) {
-                case "addSchool":
-                    addSchool(payload.school);
-                    break;
-                case "deleteSchool":
-                    deleteSchool(payload.school);
-                    break;
+                case "addChoice":
+                  addChoice(payload.index, payload.choice);
+                  break;
+                default:
+                  break;
             }
         }
     });
