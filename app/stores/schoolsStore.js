@@ -15,7 +15,7 @@ function SchoolStore() {
 
     var id = 1;
 
-    var question = {questions: [{
+    var question = {question: {
         id : id,
         image1:{
             name: "Image-1",
@@ -29,20 +29,6 @@ function SchoolStore() {
         choice: "",
         workerID : ""
     },
-    {
-        id : 2,
-        image1:{
-            name: "Image-2",
-            src:  image2src
-        },
-        image2:{
-            name: "Image-3",
-            src:  image3src
-        },
-        answer: image1name > image2name ? false:true,
-        choice: "",
-        workerID : ""
-    }],
     activeIndex: 0
   }
 
@@ -55,10 +41,16 @@ function SchoolStore() {
     }
 
     function addChoice(index, choice) {
-        // schools.push(school)
-        // triggerListeners();
         console.log(index, choice);
-        question.questions[index].choice = choice;
+        question.question.choice = choice;
+        // question.question.image1 = {
+        //     name: "Image-2",
+        //     src:  image2src
+        // };
+        // question.question.image2 = {
+        //     name: "Image-3",
+        //     src:  image3src
+        // };
         question.activeIndex = index + 1;
         triggerListeners();
     }

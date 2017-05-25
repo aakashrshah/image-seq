@@ -13,7 +13,7 @@ schoolsStore.onChange(function(question){
 function render(){
     console.log(_question);
     ReactDOM.render(
-        <SchoolsList  question={_question.questions} activeIndex={_question.activeIndex} />, document.getElementById("container"));
+        <SchoolsList  question={_question.question} activeIndex={_question.activeIndex} />, document.getElementById("container"));
 	}
 
 render();
