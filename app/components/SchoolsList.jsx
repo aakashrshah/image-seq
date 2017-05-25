@@ -1,29 +1,10 @@
 var React = require("react");
-
-var ra = false;
-//TODO : Can I read the answer outside the class. Alternative for this.props
+var actions = require("../actions/SchoolActions");
 
 module.exports = React.createClass({
-    getInitialState() {
-        return this.props.question;
-    },
-    
-    onImageClick: function (choice) {
-      var answer = this.props.question.answer.toString()
 
-      if(choice == answer){
-        console.log("Correct Answer");
-      }else{
-        console.log("Incorrect Answer");
-      }
-
-      this.setState((prevState) => ({
-        choice: choice.toString()
-      }));
-
-      console.log("Current State Choice : " + this.state.choice)
-      console.log("Correct Answer : " + answer)
-
+    onImageClick: function (userInput) {
+      actions.addSchool(userInput);
     },
 
     render:function(){
