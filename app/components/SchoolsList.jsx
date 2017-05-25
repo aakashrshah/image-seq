@@ -30,6 +30,9 @@ module.exports = React.createClass({
                       </div>
                   </div>
               </div>
+              <div>
+                  <ProgressBar bsStyle="success" now={40} />
+              </div>
            </div>
        )
     } 
