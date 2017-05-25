@@ -3,15 +3,16 @@ var ReactDOM = require("react-dom");
 var SchoolsList = require("./components/SchoolsList.jsx");
 var schoolsStore = require("./stores/schoolsStore");
 
-var _schools = schoolsStore.getSchools();
+var _question = schoolsStore.getQuestion();
 
-schoolsStore.onChange(function(schools){
-    _schools = schools;
+schoolsStore.onChange(function(question){
+    _question = question;
     render();
 });
 
 function render(){
-    ReactDOM.render(<SchoolsList schools={_schools} />, document.getElementById("container"));    
-}
+    ReactDOM.render( 
+        <SchoolsList  question={_question} />, document.getElementById("container"));    
+	}
 
 render();
