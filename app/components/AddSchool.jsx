@@ -8,10 +8,12 @@ module.exports = React.createClass({
           tagline:""
       }  
     },
+
     addSchool:function(e){
         e.preventDefault();
         actions.addSchool(this.state);
     },
+    
     handleInputChange:function(e){
       e.preventDefault();
       var name = e.target.name;
@@ -19,6 +21,7 @@ module.exports = React.createClass({
       state[name] = e.target.value;
       this.setState(state);
     },
+
     render:function(){
         return(
             <form className="form" onSubmit={this.addSchool}>

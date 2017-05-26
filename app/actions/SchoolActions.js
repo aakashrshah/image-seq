@@ -1,16 +1,11 @@
 var dispatcher = require("../dispatcher");
 
 module.exports = {
-    addSchool:function(school){
+    addChoice:function(index, choice){
         dispatcher.dispatch({
-           school:school,
-           type:"school:addSchool" 
+           index: index,
+           choice: choice,
+           type: "question:addChoice" 
         });
     },
-    deleteSchool:function(school){
-        dispatcher.dispatch({
-           school:school,
-           type:"school:deleteSchool" 
-        });
-    }
 }
