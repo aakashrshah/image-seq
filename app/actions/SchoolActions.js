@@ -1,11 +1,14 @@
 var dispatcher = require("../dispatcher");
 
 module.exports = {
-    addChoice:function(index, choice){
+    addChoice:function(workerID,assignmentID,hitID,index,choice){
         dispatcher.dispatch({
-           index: index,
-           choice: choice,
-           type: "question:addChoice" 
+        	workerID: workerID,
+        	assignmentID: assignmentID,
+        	hitID: hitID,
+        	index: index,
+        	choice: choice,
+        	type: "question:addChoice" 
         });
     },
 }

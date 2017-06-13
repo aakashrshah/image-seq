@@ -1,7 +1,14 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
 var SchoolsList = require("./components/SchoolsList.jsx");
+var ThankYou = require("./components/ThankYou.jsx");
 var schoolsStore = require("./stores/schoolsStore");
+var Router = require('react-router').Router;
+var Route = require('react-router').Route;
+var Link = require('react-router').Link
+var browserHistory = require('react-router').browserHistory;
+
+
 
 var _question = schoolsStore.getQuestion();
 
@@ -11,9 +18,13 @@ schoolsStore.onChange(function(question){
 });
 
 function render(){
-    //console.log(_question);
-    ReactDOM.render(
-        <SchoolsList  question={_question.question} activeIndex={_question.activeIndex} />, document.getElementById("container"));
-	}
+	    ReactDOM.render(
+		    <Router history={browserHistory}>
+		    	<Route path="/" component={SchoolsList} question={_question.question}/>
+		    </Router>,
+	    
+	    	document.getElementById("container")
+	    );
+}
 
 render();

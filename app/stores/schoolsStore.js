@@ -2,17 +2,41 @@ var dispatcher = require("../dispatcher");
 
 var submitted = []
 
+//Quest Variables
+var QuestStruct = {
+    updatePdf : 1, 
+    warnPdf : 1,
+    normalizePdf : 1,
+    tGuess : 2,
+    tGuessSd : 1,
+    pThreshold : 0.82,
+    beta : 3.5,
+    delta : 0.01,
+    gamma : 0.5,
+    grain : 0.25,
+    dim : 500
+}
+
+var standard_size = 8.0;
+var decimalPos = 100;
+var standardSize = standard_size * decimalPos
+
+var totalViews = 3;
+var imageIntensity = "03";
+var thresholdValue = 1; //Mean of difference (Threshold Value)
+
 function SchoolStore() {
     var listeners = [];
     var path = "./images/";
+
     var ext = ".png";
-    var image1name = 1234567;
-    var image2name = 891011;
+    var image1name = "800_1_03";
+    var image2name = "700_1_03";
 
     var image1src = path + image1name + ext;
     var image2src = path + image2name + ext;
 
-    var id = 1;
+    var id = 0;
 
     var question = {
         question: {
@@ -25,11 +49,13 @@ function SchoolStore() {
                 name: "Image-2",
                 src:  image2src
             },
-            answer: image1name > image2name ? "false":"true",
+            answer: "left",
             choice: "",
-            workerID : ""
+            workerID : "",
+            assignmentID : "",
+            hitID : ""
         },
-        activeIndex: 0
+        activeIndex: ""
     }
 
     function getQuestion() {
@@ -40,27 +66,25 @@ function SchoolStore() {
         listeners.push(listener);
     }
 
-    function changeQuestion(result,index){
-        console.log(result + " | " + index);
-        var image1 = "15611";
-        var image2 = "16511";
-
-        var images = [];
-        images.push(image1);
-        images.push(image2);
-        return images
+    function changeQuestion(q,result,index){
+        // console.log(result + " | " + index);
+        var t = Quest(q,result);
+        return t;
     }
 
     function addQuestion(q){
         submitted.push(q);
     }
 
-    function addChoice(index, choice) {
+    function addChoice(workerID,assignmentID,hitID,index,choice) {
 
-        // console.log(index, choice);
+        // console.log("Add Choice : " + index);
+        question.question.id = index+1;
         question.question.choice = choice;
+        question.question.workerID = workerID;
+        question.question.assignmentID = assignmentID;
+        question.question.hitID = hitID;
         var q = JSON.parse(JSON.stringify(question.question));
-
         //Submit User's Answer to the Stack
         addQuestion(q);
         console.log(submitted);
@@ -71,7 +95,7 @@ function SchoolStore() {
         var answer = question.question.answer;
         var result = question.question.choice == question.question.answer ? true:false
         // console.log(result);
-        var images = changeQuestion(result,index);
+        var images = changeQuestion(q,result,index);
         // console.log(images)
         var image1src = path + images[0] + ext;
         var image2src = path + images[1] + ext;
@@ -85,9 +109,13 @@ function SchoolStore() {
             name: "Image-2",
             src:  image2src
         };
+
         question.question.choice = ""
-        question.question.answer = images[0] > images[1] ? "false":"true",
-        question.activeIndex = index + 1;
+        question.question.workerID = "";
+        question.question.assignmentID = "";
+        question.question.hitID = "";
+        question.question.answer = images[2];
+        question.activeIndex = "";
         triggerListeners();
     }
 
@@ -102,7 +130,7 @@ function SchoolStore() {
         if (split[0] === "question") {
             switch (split[1]) {
                 case "addChoice":
-                  addChoice(payload.index, payload.choice);
+                  addChoice(payload.workerID,payload.assignmentID,payload.hitID,payload.index,payload.choice);
                   break;
                 default:
                   break;
@@ -116,4 +144,113 @@ function SchoolStore() {
     }
 }
 
+
+function Quest(q,result){
+    return images = Demo(q,result);
+
+    function getThreshold(x,result){
+        if(result){
+            while(x >= thresholdValue){
+                x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
+            }
+        }else{
+            while(x <= thresholdValue){
+                x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
+            }
+        }
+
+        return x;
+    }
+
+    function Demo(q,result){
+        //Value between 0 and 2
+        var x = thresholdValue;
+        console.log("Previous TV : " + thresholdValue + "\n");
+
+        thresholdValue = getThreshold(x,result); 
+
+        //Check the ranges of the Threshold Values
+        if(thresholdValue >=2){
+            thresholdValue = 2;
+        }
+
+        if(thresholdValue <= 0){
+            thresholdValue = 0.1;
+        }
+
+        console.log(q.id + " Trial was " + result + ". Next Trial TV : " + thresholdValue)
+
+        //Random Sign Generator
+        var sign =   ""
+        var minusiszeroplusisone = Math.floor((Math.random() * 10)) % 2;
+        if(minusiszeroplusisone == 0){
+            var sign = "-";
+        }else{
+            var sign = "+"
+        }  
+
+        //Add/Subtract to standard_size
+        if(sign != ""){
+            var imagesize = standard_size;
+            if(sign == "+"){
+                imageSize = standard_size + thresholdValue;
+            }else{
+                imageSize = standard_size - thresholdValue;
+            }
+        }
+        imageSize = parseFloat(imageSize.toFixed(2));
+        console.log("Required Image Size : " + imageSize)
+
+        imageSize = Math.floor(imageSize * decimalPos)
+
+        //Generate Random View
+        var viewNumber = (Math.floor((Math.random() * 10)) % totalViews) + 1;
+        var standardViewNumber = (Math.floor((Math.random() * 10)) % totalViews) + 1
+
+        //Generate Image Name
+        var imageName = imageSize + "_" + viewNumber + "_" + imageIntensity
+        var standardImageName = standardSize + "_" + standardViewNumber + "_" + imageIntensity
+
+        //Check if Image exists
+
+        //Insert image in array and determine left or right.
+        var image1 = imageName;
+        var image2 = standardImageName;
+
+        var images = [];
+        var leftOrRight = Math.floor((Math.random() * 10)) % 2;
+
+        if(leftOrRight == 0){
+            images.push(image1);    //image[0]
+            images.push(image2);    //image[1]
+            images.push(imageSize > standardSize ? "left" : "right")
+        }else{
+            images.push(image2);    //image[0]
+            images.push(image1);    //image[1]
+            images.push(imageSize > standardSize ? "right" : "left")
+        }
+
+        return images
+    }
+}
+
+function QuestMean(){
+
+}
+
+function QuestSd(){
+
+}
+
+function QuestRecompute(){
+
+}
+
+function QuestQuantile(){
+
+}
+
+function QuestUpdate(){
+
+}
 module.exports = SchoolStore();
