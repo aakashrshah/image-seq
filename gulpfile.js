@@ -22,6 +22,6 @@ gulp.task('watch', ['build'], function () {
     gulp.watch('*.jsx', ['build']);
 });
 
-gulp.task("default",["watch"],function(){
+gulp.task("default",["build"],function(){
    console.log("Gulp completed..."); 
 });
