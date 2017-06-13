@@ -150,17 +150,20 @@ function Quest(q,result){
     return images = Demo(q,result);
 
     function getThreshold(x,result){
+        var y = x;
         if(result){
-            while(x >= thresholdValue){
-                x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
-            }
+            // while(x >= thresholdValue){
+            //     x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
+            // }
+            y = parseFloat((Math.random() * (x - 0.10) + 0.10).toFixed(2))
         }else{
-            while(x <= thresholdValue){
-                x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
-            }
+            // while(x <= thresholdValue){
+            //     x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
+            // }
+            y = parseFloat((Math.random() * (2.10 - x) + x).toFixed(2))
         }
 
-        return x;
+        return y;
     }
 
     function Demo(q,result){
