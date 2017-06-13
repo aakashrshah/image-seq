@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
     render:function(){
        
-       if(this.props.route.question.id < 40){
+       if(this.props.route.question.id < totalQuestion){
        return(
             <div className="row">
               <div className="col-md-6">

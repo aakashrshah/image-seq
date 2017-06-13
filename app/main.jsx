@@ -8,8 +8,6 @@ var Route = require('react-router').Route;
 var Link = require('react-router').Link
 var browserHistory = require('react-router').browserHistory;
 
-
-
 var _question = schoolsStore.getQuestion();
 
 schoolsStore.onChange(function(question){
