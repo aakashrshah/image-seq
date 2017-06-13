@@ -28,13 +28,14 @@ var thresholdValue = 1; //Mean of difference (Threshold Value)
 function SchoolStore() {
     var listeners = [];
     var path = "./images/";
-
+    var viewLeft = "1/"
+    var viewRight = "1/"
     var ext = ".png";
     var image1name = "800_1_03";
     var image2name = "700_1_03";
 
-    var image1src = path + image1name + ext;
-    var image2src = path + image2name + ext;
+    var image1src = path + viewLeft + image1name + ext;
+    var image2src = path + viewRight + image2name + ext;
 
     var id = 0;
 
@@ -97,8 +98,8 @@ function SchoolStore() {
         // console.log(result);
         var images = changeQuestion(q,result,index);
         // console.log(images)
-        var image1src = path + images[0] + ext;
-        var image2src = path + images[1] + ext;
+        var image1src = path + images[3] + images[0] + ext;
+        var image2src = path + images[4] + images[1] + ext;
 
         question.question.image1 = {
             name: "Image-1",
@@ -223,11 +224,15 @@ function Quest(q,result){
         if(leftOrRight == 0){
             images.push(image1);    //image[0]
             images.push(image2);    //image[1]
-            images.push(imageSize > standardSize ? "left" : "right")
+            images.push(imageSize > standardSize ? "left" : "right") //image[2]
+            images.push("" + viewNumber + "/")    //image[3]
+            images.push("" + standardViewNumber + "/")    //image[4]
         }else{
             images.push(image2);    //image[0]
             images.push(image1);    //image[1]
-            images.push(imageSize > standardSize ? "right" : "left")
+            images.push(imageSize > standardSize ? "right" : "left") //image[2]
+            images.push("" + standardViewNumber + "/")    //image[3]
+            images.push("" + viewNumber + "/")    //image[4]
         }
 
         return images
