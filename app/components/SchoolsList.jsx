@@ -65,7 +65,12 @@ module.exports = React.createClass({
          return(
               <div className="row">
                       <center>
-                        <input type='submit' value='Submit' onClick={this.onImageClick.bind(this,"submit")}/>
+                        <form name="mturk_form" method="post" id="mturk_form" action={this.props.location.query.turkSubmitTo + "mturk/externalSubmit"}>
+
+                          <input type="hidden" value='' name="assignmentId" id={this.props.location.query.assignmentId}/>
+                          
+                          <input type="submit" onclick="event.preventDefault();"/>
+                        </form>
                       </center>
               </div>
               );
