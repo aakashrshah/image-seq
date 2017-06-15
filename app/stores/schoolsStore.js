@@ -82,7 +82,7 @@ function SchoolStore() {
     function addChoice(workerID,assignmentID,hitID,index,choice) {
 
         if(index==40 && choice=="submit"){
-            data = "assignmentID="+assignmentID
+            data = "assignmentID="+assignmentID+"&aakash=iscool"
             var request = new XMLHttpRequest();
             request.open('POST', 'https://workersandbox.mturk.com/mturk/externalSubmit', true);
             request.setRequestHeader('Content-Type', 'yext/html; charset=UTF-8');
