@@ -71,8 +71,10 @@ module.exports = React.createClass({
                         
                         <input type="hidden" name="aakash" value="isIndeedCool"/>
 
-                        <input type="submit" value="Submit" onClick={event.preventDefault()} className="btn btn-success"/>
+                        <input type="submit" value="Submit Your Answers" onClick={event.preventDefault()} className="btn btn-success"/>
                       </form>
+                     <br/>
+                     <h2> Thank You. </h2>
                      <br/>
                   </center>
               </div>
