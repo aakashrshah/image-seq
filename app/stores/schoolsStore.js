@@ -21,6 +21,8 @@ var standard_size = 8.0;
 var decimalPos = 100;
 var standardSize = standard_size * decimalPos
 
+var upperTV = 2.10;
+var lowerTV = 0.10;
 var totalViews = 3;
 var imageIntensity = "03";
 var thresholdValue = 1; //Mean of difference (Threshold Value)
@@ -155,12 +157,12 @@ function Quest(q,result){
             // while(x >= thresholdValue){
             //     x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
             // }
-            y = parseFloat((Math.random() * (x - 0.10) + 0.10).toFixed(2))
+            y = parseFloat((Math.random() * (x - lowerTV) + lowerTV).toFixed(2))
         }else{
             // while(x <= thresholdValue){
             //     x = parseFloat((Math.random() * (2.10 - 0.10) + 0.10).toFixed(2)) 
             // }
-            y = parseFloat((Math.random() * (2.10 - x) + x).toFixed(2))
+            y = parseFloat((Math.random() * (upperTV - x) + x).toFixed(2))
         }
 
         return y;
