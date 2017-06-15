@@ -88,21 +88,45 @@ module.exports = React.createClass({
       else{
           return(
             <div className="row">
-                    <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
-
-                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
-                          
-                          <input type="hidden" name="aakash" value="isIndeedCool"/>
-
-                          <input type="submit" value="n00b" onClick={event.preventDefault()} className="btn btn-success"/>
-                        </form>
-                       <br/>
-                       <h2> Thank You. </h2>
-                       <br/>
-                    </center>
+                <div className="col-md-6">
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            Preview Mode : {this.props.route.question.image1.name}
+                        </div>
+                        <div className="panel-body">
+                        <CSSTransitionGroup
+        transitionName="example"
+        transitionAppear={true}
+        transitionLeave={true}
+        transitionEnterTimeout={600}
+        transitionAppearTimeout={600}
+        transitionLeaveTimeout={10000}>
+                            <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block"/>
+                          </CSSTransitionGroup>
+                        </div>
+                    </div>
                 </div>
-
+                <div className="col-md-6">
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                          Preview Mode : {this.props.route.question.image2.name}
+                        </div>
+                        <div className="panel-body">
+                        <CSSTransitionGroup
+        transitionName="example2"
+        transitionAppear={true}
+        transitionAppearTimeout={5000}
+        transitionEnter={false}
+        transitionLeave={false}>
+                            <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block"/>
+                          </CSSTransitionGroup>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <Line percent="0" strokeWidth="2" strokeColor="#D3D3D3" />
+                </div>
+             </div>
           );
       }
     }
