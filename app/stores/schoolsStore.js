@@ -18,13 +18,13 @@ var QuestStruct = {
 }
 
 var standard_size = 8.0;
-var decimalPos = 100;
+var decimalPos = 100.00;
 var standardSize = standard_size * decimalPos
 
 var upperTV = 2.10;
-var lowerTV = 0.10;
+var lowerTV = 0.09;
 var totalViews = 3;
-var imageIntensity = "03";
+var imageIntensity = ["00","01"];
 var thresholdValue = 1; //Mean of difference (Threshold Value)
 
 function SchoolStore() {
@@ -33,8 +33,8 @@ function SchoolStore() {
     var viewLeft = "1/"
     var viewRight = "1/"
     var ext = ".png";
-    var image1name = "800_1_03";
-    var image2name = "700_1_03";
+    var image1name = "800_1_00";
+    var image2name = "700_1_00";
 
     var image1src = path + viewLeft + image1name + ext;
     var image2src = path + viewRight + image2name + ext;
@@ -81,17 +81,6 @@ function SchoolStore() {
 
     function addChoice(workerID,assignmentID,hitID,index,choice) {
 
-        if(index==40 && choice=="submit"){
-            data = "?assignmentID="+assignmentID+"&aakash=iscool"
-            var request = new XMLHttpRequest();
-            request.open('POST', 'https://workersandbox.mturk.com/mturk/externalSubmit', true);
-            request.setRequestHeader('Content-Type', 'text/html; charset=UTF-8');
-            request.send(data);
-            console.log(data)
-            alert("Submitted! Thank you.")
-            return;
-        }
-
         // console.log("Add Choice : " + index);
         question.question.id = index+1;
         question.question.choice = choice;
@@ -102,7 +91,10 @@ function SchoolStore() {
         //Submit User's Answer to the Stack
         addQuestion(q);
         console.log(submitted);
-
+        if(submitted.length == 40){
+               console.log("Test Finished")
+               return;
+        }
         //Update Question
         //console.log(question.question.choice)
         //console.log(question.question.answer)
@@ -176,13 +168,21 @@ function Quest(q,result){
             y = parseFloat((Math.random() * (upperTV - x) + x).toFixed(2))
         }
 
-        return y;
+        //Round to nearest tenth.
+        var round1place = Math.floor(y*10)/10;
+        var pivot = round1place + 0.05;
+        if(y>=pivot){
+            round1place = round1place + 0.10
+        }
+
+        round1place = parseFloat(round1place.toFixed(2))
+        return round1place;
     }
 
     function Demo(q,result){
         //Value between 0 and 2
         var x = thresholdValue;
-        console.log("Previous TV : " + thresholdValue + "\n");
+        // console.log("Previous TV : " + thresholdValue + "\n");
 
         thresholdValue = getThreshold(x,result); 
 
@@ -192,7 +192,7 @@ function Quest(q,result){
         }
 
         if(thresholdValue <= 0){
-            thresholdValue = 0.1;
+            thresholdValue = 0.10;
         }
 
         console.log(q.id + " Trial was " + result + ". Next Trial TV : " + thresholdValue)
@@ -207,26 +207,26 @@ function Quest(q,result){
         }  
 
         //Add/Subtract to standard_size
+        var imagesize = standard_size;
         if(sign != ""){
-            var imagesize = standard_size;
             if(sign == "+"){
                 imageSize = standard_size + thresholdValue;
             }else{
                 imageSize = standard_size - thresholdValue;
             }
         }
-        imageSize = parseFloat(imageSize.toFixed(2));
-        console.log("Required Image Size : " + imageSize)
-
-        imageSize = Math.floor(imageSize * decimalPos)
+        var rounded = parseFloat(imageSize.toFixed(2))* decimalPos;
+        imageSize = parseFloat(rounded.toFixed(2))
 
         //Generate Random View
         var viewNumber = (Math.floor((Math.random() * 10)) % totalViews) + 1;
         var standardViewNumber = (Math.floor((Math.random() * 10)) % totalViews) + 1
 
         //Generate Image Name
-        var imageName = imageSize + "_" + viewNumber + "_" + imageIntensity
-        var standardImageName = standardSize + "_" + standardViewNumber + "_" + imageIntensity
+        console.log("Required Image Size : " + imageSize)
+
+        var imageName = imageSize + "_" + viewNumber + "_" + imageIntensity[minusiszeroplusisone]
+        var standardImageName = standardSize + "_" + standardViewNumber + "_" + imageIntensity[minusiszeroplusisone]
 
         //Check if Image exists
 
