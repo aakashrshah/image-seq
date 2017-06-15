@@ -4,6 +4,7 @@ var {Line} = require("rc-progress");
 var CSSTransitionGroup = require('react-transition-group/CSSTransitionGroup');
 
 var totalQuestion = 40;
+var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 
 module.exports = React.createClass({
 
@@ -64,10 +65,10 @@ module.exports = React.createClass({
              );
          }else{
 
-           return(
+            return(
                 <div className="row">
                     <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
+                        <form name="mturk_form" method="post" id="mturk_form" action={submitLink}>
 
                           <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
                           
@@ -80,8 +81,8 @@ module.exports = React.createClass({
                        <br/>
                     </center>
                 </div>
-                );
-           }
+            );
+          }
              
          
       }

@@ -20,7 +20,7 @@ var QuestStruct = {
 var standard_size = 8.0;
 var decimalPos = 100.00;
 var standardSize = standard_size * decimalPos
-
+var totalTrials = 40;
 var upperTV = 2.10;
 var lowerTV = 0.09;
 var totalViews = 3;
@@ -91,38 +91,40 @@ function SchoolStore() {
         //Submit User's Answer to the Stack
         addQuestion(q);
         console.log(submitted);
-        if(submitted.length == 40){
-               console.log("Test Finished")
-               return;
+        if(submitted.length >= totalTrials){
+            console.log("Test Finished")
+            triggerListeners();   
+        }else{
+            //Update Question
+            //console.log(question.question.choice)
+            //console.log(question.question.answer)
+            var answer = question.question.answer;
+            var result = question.question.choice == question.question.answer ? true:false
+            // console.log(result);
+            var images = changeQuestion(q,result,index);
+            // console.log(images)
+            var image1src = path + images[3] + images[0] + ext;
+            var image2src = path + images[4] + images[1] + ext;
+
+            question.question.image1 = {
+                name: "Image-1",
+                src:  image1src
+            };
+
+            question.question.image2 = {
+                name: "Image-2",
+                src:  image2src
+            };
+
+            question.question.choice = ""
+            question.question.workerID = "";
+            question.question.assignmentID = "";
+            question.question.hitID = "";
+            question.question.answer = images[2];
+            question.activeIndex = "";
+            triggerListeners();   
         }
-        //Update Question
-        //console.log(question.question.choice)
-        //console.log(question.question.answer)
-        var answer = question.question.answer;
-        var result = question.question.choice == question.question.answer ? true:false
-        // console.log(result);
-        var images = changeQuestion(q,result,index);
-        // console.log(images)
-        var image1src = path + images[3] + images[0] + ext;
-        var image2src = path + images[4] + images[1] + ext;
 
-        question.question.image1 = {
-            name: "Image-1",
-            src:  image1src
-        };
-
-        question.question.image2 = {
-            name: "Image-2",
-            src:  image2src
-        };
-
-        question.question.choice = ""
-        question.question.workerID = "";
-        question.question.assignmentID = "";
-        question.question.hitID = "";
-        question.question.answer = images[2];
-        question.activeIndex = "";
-        triggerListeners();
     }
 
     function triggerListeners() {
