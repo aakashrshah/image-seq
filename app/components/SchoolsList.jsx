@@ -16,71 +16,94 @@ module.exports = React.createClass({
     },
 
     render:function(){
-       
-       if(this.props.route.question.id < totalQuestion){
-       return(
-            <div className="row">
-              <div className="col-md-6">
-                  <div className="panel panel-default">
-                      <div className="panel-heading">
-                          {this.props.route.question.image1.name}
-                      </div>
-                      <div className="panel-body">
-                      <CSSTransitionGroup
-      transitionName="example"
-      transitionAppear={true}
-      transitionLeave={true}
-      transitionEnterTimeout={600}
-      transitionAppearTimeout={600}
-      transitionLeaveTimeout={10000}>
-                          <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
-                        </CSSTransitionGroup>
-                      </div>
-                  </div>
-              </div>
-              <div className="col-md-6">
-                  <div className="panel panel-default">
-                      <div className="panel-heading">
-                          {this.props.route.question.image2.name}
-                      </div>
-                      <div className="panel-body">
-                      <CSSTransitionGroup
-      transitionName="example2"
-      transitionAppear={true}
-      transitionAppearTimeout={5000}
-      transitionEnter={false}
-      transitionLeave={false}>
-                          <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
-                        </CSSTransitionGroup>
-                      </div>
-                  </div>
-              </div>
-              <div>
-                  <Line percent={this.props.route.question.id * (100/totalQuestion)} strokeWidth="2" strokeColor="#D3D3D3" />
-              </div>
-           </div>
-           );
-       }else{
+    
+      if(this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
+         if(this.props.route.question.id < totalQuestion){
          return(
               <div className="row">
-                  <center>
-                      <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
+                <div className="col-md-6">
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            {this.props.route.question.image1.name}
+                        </div>
+                        <div className="panel-body">
+                        <CSSTransitionGroup
+        transitionName="example"
+        transitionAppear={true}
+        transitionLeave={true}
+        transitionEnterTimeout={600}
+        transitionAppearTimeout={600}
+        transitionLeaveTimeout={10000}>
+                            <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
+                          </CSSTransitionGroup>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            {this.props.route.question.image2.name}
+                        </div>
+                        <div className="panel-body">
+                        <CSSTransitionGroup
+        transitionName="example2"
+        transitionAppear={true}
+        transitionAppearTimeout={5000}
+        transitionEnter={false}
+        transitionLeave={false}>
+                            <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                          </CSSTransitionGroup>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <Line percent={this.props.route.question.id * (100/totalQuestion)} strokeWidth="2" strokeColor="#D3D3D3" />
+                </div>
+             </div>
+             );
+         }else{
 
-                        <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
-                        
-                        <input type="hidden" name="aakash" value="isIndeedCool"/>
+           return(
+                <div className="row">
+                    <center>
+                        <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
 
-                        <input type="submit" value="Submit Your Answers" onClick={event.preventDefault()} className="btn btn-success"/>
-                      </form>
-                     <br/>
-                     <h2> Thank You. </h2>
-                     <br/>
-                  </center>
-              </div>
-              );
-         }
-           
-       
+                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
+                          
+                          <input type="hidden" name="aakash" value="isIndeedCool"/>
+
+                          <input type="submit" value="Submit Your Answers" onClick={event.preventDefault()} className="btn btn-success"/>
+                        </form>
+                       <br/>
+                       <h2> Thank You. </h2>
+                       <br/>
+                    </center>
+                </div>
+                );
+           }
+             
+         
+      }
+      else{
+          return(
+            <div className="row">
+                    <center>
+                        <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
+
+                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
+                          
+                          <input type="hidden" name="aakash" value="isIndeedCool"/>
+
+                          <input type="submit" value="n00b" onClick={event.preventDefault()} className="btn btn-success"/>
+                        </form>
+                       <br/>
+                       <h2> Thank You. </h2>
+                       <br/>
+                    </center>
+                </div>
+
+          );
+      }
     }
 });
