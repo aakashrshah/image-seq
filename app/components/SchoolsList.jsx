@@ -65,7 +65,7 @@ module.exports = React.createClass({
          return(
               <div className="row">
                       <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action={{this.props.location.query.turkSubmitTo} + "/mturk/externalSubmit"}>
+                        <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
 
                           <input type="hidden" value='' name="assignmentId" id={this.props.location.query.assignmentId}/>
                           
