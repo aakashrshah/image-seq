@@ -65,11 +65,11 @@ module.exports = React.createClass({
          return(
               <div className="row">
                       <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action={this.props.location.query.turkSubmitTo + "mturk/externalSubmit"}>
+                        <form name="mturk_form" method="post" id="mturk_form" action={this.props.location.query.turkSubmitTo + "/mturk/externalSubmit"}>
 
                           <input type="hidden" value='' name="assignmentId" id={this.props.location.query.assignmentId}/>
                           
-                          <input type="submit" onclick="event.preventDefault();"/>
+                          <input type="submit" onClick="event.preventDefault();"/>
                         </form>
                       </center>
               </div>
