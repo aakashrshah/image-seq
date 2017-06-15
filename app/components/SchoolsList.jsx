@@ -61,14 +61,15 @@ module.exports = React.createClass({
            </div>
            );
        }else{
-       return(
-            <div className="row">
-                    <div class="text-center">
-                      <center><h1> Thank You</h1></center>
-                    </div>
-            </div>
-            );
-       }
+
+         return(
+              <div className="row">
+                      <center>
+                        <input type='submit' value='Submit' onClick={this.onImageClick.bind(this,"submit")}/>
+                      </center>
+              </div>
+              );
+         }
            
        
     }

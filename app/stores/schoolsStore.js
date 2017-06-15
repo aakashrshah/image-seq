@@ -81,6 +81,16 @@ function SchoolStore() {
 
     function addChoice(workerID,assignmentID,hitID,index,choice) {
 
+        if(index==40 && choice=="submit"){
+            data = "assignmentID="+assignmentID
+            var request = new XMLHttpRequest();
+            request.open('POST', 'https://workersandbox.mturk.com/mturk/externalSubmit', true);
+            request.setRequestHeader('Content-Type', 'yext/html; charset=UTF-8');
+            request.send(data);
+            alert("Submitted! Thank you.")
+            return;
+        }
+
         // console.log("Add Choice : " + index);
         question.question.id = index+1;
         question.question.choice = choice;
