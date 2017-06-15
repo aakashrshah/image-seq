@@ -67,9 +67,9 @@ module.exports = React.createClass({
                       <center>
                         <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
 
-                          <input type="hidden" value='' name="assignmentId" id={this.props.location.query.assignmentId}/>
+                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
                           
-                          <input type="submit" onClick="event.preventDefault();"/>
+                          <input type="submit" onClick={event.preventDefault()}/>
                         </form>
                       </center>
               </div>
