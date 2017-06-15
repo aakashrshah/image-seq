@@ -64,16 +64,17 @@ module.exports = React.createClass({
 
          return(
               <div className="row">
-                      <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
+                  <center>
+                      <form name="mturk_form" method="post" id="mturk_form" action="https://workersandbox.mturk.com/mturk/externalSubmit">
 
-                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
-                          
-                          <input type="hidden" name="aakash" value="isIndeedCool"/>
+                        <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
+                        
+                        <input type="hidden" name="aakash" value="isIndeedCool"/>
 
-                          <input type="submit" onClick={event.preventDefault()}/>
-                        </form>
-                      </center>
+                        <input type="submit" value="Submit" onClick={event.preventDefault()} className="btn btn-success"/>
+                      </form>
+                     <br/>
+                  </center>
               </div>
               );
          }
