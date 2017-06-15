@@ -85,7 +85,7 @@ function SchoolStore() {
             data = "assignmentID="+assignmentID+"&aakash=iscool"
             var request = new XMLHttpRequest();
             request.open('POST', 'https://workersandbox.mturk.com/mturk/externalSubmit', true);
-            request.setRequestHeader('Content-Type', 'yext/html; charset=UTF-8');
+            request.setRequestHeader('Content-Type', 'text/html; charset=UTF-8');
             request.send(data);
             alert("Submitted! Thank you.")
             return;
