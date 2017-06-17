@@ -154,7 +154,7 @@ function SchoolStore() {
 
 
 function Quest(q,result){
-    return images = Demo(q,result);
+    return Demo(q,result);
 
     function getThreshold(x,result){
         var y = x;
@@ -209,7 +209,7 @@ function Quest(q,result){
         }  
 
         //Add/Subtract to standard_size
-        var imagesize = standard_size;
+        var imageSize = standard_size;
         if(sign != ""){
             if(sign == "+"){
                 imageSize = standard_size + thresholdValue;

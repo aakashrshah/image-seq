@@ -2,8 +2,8 @@ var React = require("react");
 var actions = require("../actions/SchoolActions");
 var {Line} = require("rc-progress");
 //var CSSTransitionGroup = require('react-transition-group/CSSTransitionGroup');
-var Slider = require('react-slick');
-
+//  var Slider = require('react-slick');
+import Slider from 'react-slick';
 
 var totalQuestion = 40;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
@@ -23,17 +23,45 @@ class SchoolsList extends React.Component {
       if(this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
          if(this.props.route.question.id < totalQuestion){
+
+          var settings = {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1000,
+            infinite:false,
+            fade:true,
+            pauseOnHover:false
+
+          };
+
+          var settings1 = {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            infinite:false,
+            fade:true,
+            pauseOnHover:false
+          };
+
          return(
-              <div className="row">
+              <div className="row" key={this.props.route.question.id}>
                 <div className="col-md-6">
                     <div className="panel panel-default">
                         <div className="panel-heading">
                             {this.props.route.question.image1.name}
                         </div>
-                        <div className="panel-body">
-                      
-                            <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
-                        </div>
+                        <Slider {...settings}>
+
+                          <div className="panel-body">
+                              <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
+                          </div>
+
+                          <div className="panel-body">
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
+                          </div>
+                        </Slider>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -41,10 +69,17 @@ class SchoolsList extends React.Component {
                         <div className="panel-heading">
                             {this.props.route.question.image2.name}
                         </div>
-                        <div className="panel-body">
-
-                            <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
-                        </div>
+                        <Slider {...settings1}>
+                          <div className="panel-body">
+                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                          </div>
+                          <div className="panel-body">
+                              <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                          </div>
+                          <div className="panel-body">
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                          </div>
+                        </Slider>
                     </div>
                 </div>
                 <div>
@@ -80,9 +115,18 @@ class SchoolsList extends React.Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
+            autoplaySpeed: 1000,
+            infinite:false
+          };
+
+          var settings1 = {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
             autoplaySpeed: 2000,
             infinite:false
           };
+
           console.log(settings)
           return(
             <div className="row">
@@ -96,6 +140,7 @@ class SchoolsList extends React.Component {
                               <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block"/>
                           </div>
                           <div className="panel-body">
+                            <input type="image" src="Background1.png" className="img-responsive center-block"/>
                           </div>
                         </Slider>
                     </div>
@@ -105,11 +150,15 @@ class SchoolsList extends React.Component {
                         <div className="panel-heading">
                           Preview Mode : {this.props.route.question.image2.name}
                         </div>
-                        <Slider {...settings}>
+                        <Slider {...settings1}>
+                          <div className="panel-body">
+                            <img src="Background.jpg"/>
+                          </div>
                           <div className="panel-body">
                               <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block"/>
                           </div>
                           <div className="panel-body">
+                              <input type="image" src="Background1.png" className="img-responsive center-block" />
                           </div>
                         </Slider>
                     </div>
