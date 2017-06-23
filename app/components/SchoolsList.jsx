@@ -17,6 +17,9 @@ class SchoolsList extends React.Component {
       var hitID = this.props.location.query.hitId;
       actions.addChoice(workerID,assignmentID,hitID,index,choice);
     }
+    onFakeClick() {
+      
+    }
 
     render(){
     
@@ -28,10 +31,10 @@ class SchoolsList extends React.Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 1000,
+            autoplaySpeed: 1300,
             infinite:false,
             fade:true,
-            pauseOnHover:false
+            pauseOnHover:false,
 
           };
 
@@ -42,7 +45,7 @@ class SchoolsList extends React.Component {
             autoplaySpeed: 2000,
             infinite:false,
             fade:true,
-            pauseOnHover:false
+            pauseOnHover:false,
           };
 
          return(
@@ -55,7 +58,15 @@ class SchoolsList extends React.Component {
                         <Slider {...settings}>
 
                           <div className="panel-body">
-                              <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
+                              <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block "/>
+                          </div>
+
+                          <div className="panel-body">
+                              <input type="image" src="Background.jpg" className="img-responsive center-block"/>
+                          </div>
+
+                          <div className="panel-body">
+                              <input type="image" src="Background.jpg" className="img-responsive center-block"/>
                           </div>
 
                           <div className="panel-body">
@@ -71,10 +82,10 @@ class SchoolsList extends React.Component {
                         </div>
                         <Slider {...settings1}>
                           <div className="panel-body">
-                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                              <input type="image" src="Background.jpg" className="img-responsive center-block"/>
                           </div>
                           <div className="panel-body">
-                              <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                              <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" />
                           </div>
                           <div className="panel-body">
                               <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
@@ -115,8 +126,11 @@ class SchoolsList extends React.Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 1000,
-            infinite:false
+            autoplaySpeed: 1300,
+            infinite:false,
+            fade:true,
+            pauseOnHover:false
+
           };
 
           var settings1 = {
@@ -124,7 +138,9 @@ class SchoolsList extends React.Component {
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 2000,
-            infinite:false
+            infinite:false,
+            fade:true,
+            pauseOnHover:false
           };
 
           console.log(settings)
@@ -139,8 +155,17 @@ class SchoolsList extends React.Component {
                           <div className="panel-body">
                               <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block"/>
                           </div>
+
                           <div className="panel-body">
-                            <input type="image" src="Background1.png" className="img-responsive center-block"/>
+                              <input type="image" src="Background.jpg" className="img-responsive center-block"/>
+                          </div>
+
+                          <div className="panel-body">
+                              <input type="image" src="Background.jpg" className="img-responsive center-block"/>
+                          </div>
+
+                          <div className="panel-body">
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
                           </div>
                         </Slider>
                     </div>
@@ -152,13 +177,13 @@ class SchoolsList extends React.Component {
                         </div>
                         <Slider {...settings1}>
                           <div className="panel-body">
-                            <img src="Background.jpg"/>
+                              <input type="image" src="Background.jpg" className="img-responsive center-block"/>
                           </div>
                           <div className="panel-body">
-                              <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block"/>
+                              <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" />
                           </div>
                           <div className="panel-body">
-                              <input type="image" src="Background1.png" className="img-responsive center-block" />
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
                           </div>
                         </Slider>
                     </div>

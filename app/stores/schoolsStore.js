@@ -20,6 +20,8 @@ var QuestStruct = {
 var standard_size = 8.0;
 var decimalPos = 100.00;
 var standardSize = standard_size * decimalPos
+var standardViewNumber = 2;
+var standardImageIntensity = "00";
 var totalTrials = 40;
 var upperTV = 2.10;
 var lowerTV = 0.09;
@@ -30,11 +32,11 @@ var thresholdValue = 1; //Mean of difference (Threshold Value)
 function SchoolStore() {
     var listeners = [];
     var path = "./images/";
-    var viewLeft = "1/"
-    var viewRight = "1/"
+    var viewLeft = "2/"
+    var viewRight = "2/"
     var ext = ".png";
-    var image1name = "800_1_00";
-    var image2name = "700_1_00";
+    var image1name = "800_2_00";
+    var image2name = "700_2_00";
 
     var image1src = path + viewLeft + image1name + ext;
     var image2src = path + viewRight + image2name + ext;
@@ -222,13 +224,12 @@ function Quest(q,result){
 
         //Generate Random View
         var viewNumber = (Math.floor((Math.random() * 10)) % totalViews) + 1;
-        var standardViewNumber = (Math.floor((Math.random() * 10)) % totalViews) + 1
 
         //Generate Image Name
         console.log("Required Image Size : " + imageSize)
 
         var imageName = imageSize + "_" + viewNumber + "_" + imageIntensity[minusiszeroplusisone]
-        var standardImageName = standardSize + "_" + standardViewNumber + "_" + imageIntensity[minusiszeroplusisone]
+        var standardImageName = standardSize + "_" + standardViewNumber + "_" + standardImageIntensity
 
         //Check if Image exists
 

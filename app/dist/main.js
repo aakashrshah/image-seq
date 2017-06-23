@@ -64,6 +64,9 @@ var SchoolsList = function (_React$Component) {
             actions.addChoice(workerID, assignmentID, hitID, index, choice);
         }
     }, {
+        key: "onFakeClick",
+        value: function onFakeClick() {}
+    }, {
         key: "render",
         value: function render() {
 
@@ -75,7 +78,7 @@ var SchoolsList = function (_React$Component) {
                         slidesToShow: 1,
                         slidesToScroll: 1,
                         autoplay: true,
-                        autoplaySpeed: 1000,
+                        autoplaySpeed: 1300,
                         infinite: false,
                         fade: true,
                         pauseOnHover: false
@@ -112,7 +115,17 @@ var SchoolsList = function (_React$Component) {
                                     React.createElement(
                                         "div",
                                         { className: "panel-body" },
-                                        React.createElement("input", { type: "image", src: this.props.route.question.image1.src, className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "left") })
+                                        React.createElement("input", { type: "image", src: this.props.route.question.image1.src, className: "img-responsive center-block " })
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "panel-body" },
+                                        React.createElement("input", { type: "image", src: "Background.jpg", className: "img-responsive center-block" })
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "panel-body" },
+                                        React.createElement("input", { type: "image", src: "Background.jpg", className: "img-responsive center-block" })
                                     ),
                                     React.createElement(
                                         "div",
@@ -139,12 +152,12 @@ var SchoolsList = function (_React$Component) {
                                     React.createElement(
                                         "div",
                                         { className: "panel-body" },
-                                        React.createElement("input", { type: "image", src: "Background.jpg", className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "right") })
+                                        React.createElement("input", { type: "image", src: "Background.jpg", className: "img-responsive center-block" })
                                     ),
                                     React.createElement(
                                         "div",
                                         { className: "panel-body" },
-                                        React.createElement("input", { type: "image", src: this.props.route.question.image2.src, className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "right") })
+                                        React.createElement("input", { type: "image", src: this.props.route.question.image2.src, className: "img-responsive center-block" })
                                     ),
                                     React.createElement(
                                         "div",
@@ -190,8 +203,11 @@ var SchoolsList = function (_React$Component) {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     autoplay: true,
-                    autoplaySpeed: 1000,
-                    infinite: false
+                    autoplaySpeed: 1300,
+                    infinite: false,
+                    fade: true,
+                    pauseOnHover: false
+
                 };
 
                 var settings1 = {
@@ -199,7 +215,9 @@ var SchoolsList = function (_React$Component) {
                     slidesToScroll: 1,
                     autoplay: true,
                     autoplaySpeed: 2000,
-                    infinite: false
+                    infinite: false,
+                    fade: true,
+                    pauseOnHover: false
                 };
 
                 console.log(settings);
@@ -229,7 +247,17 @@ var SchoolsList = function (_React$Component) {
                                 React.createElement(
                                     "div",
                                     { className: "panel-body" },
-                                    React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block" })
+                                    React.createElement("input", { type: "image", src: "Background.jpg", className: "img-responsive center-block" })
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "panel-body" },
+                                    React.createElement("input", { type: "image", src: "Background.jpg", className: "img-responsive center-block" })
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "panel-body" },
+                                    React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "left") })
                                 )
                             )
                         )
@@ -252,7 +280,7 @@ var SchoolsList = function (_React$Component) {
                                 React.createElement(
                                     "div",
                                     { className: "panel-body" },
-                                    React.createElement("img", { src: "Background.jpg" })
+                                    React.createElement("input", { type: "image", src: "Background.jpg", className: "img-responsive center-block" })
                                 ),
                                 React.createElement(
                                     "div",
@@ -262,7 +290,7 @@ var SchoolsList = function (_React$Component) {
                                 React.createElement(
                                     "div",
                                     { className: "panel-body" },
-                                    React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block" })
+                                    React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "right") })
                                 )
                             )
                         )
@@ -383,6 +411,8 @@ var QuestStruct = {
 var standard_size = 8.0;
 var decimalPos = 100.00;
 var standardSize = standard_size * decimalPos;
+var standardViewNumber = 2;
+var standardImageIntensity = "00";
 var totalTrials = 40;
 var upperTV = 2.10;
 var lowerTV = 0.09;
@@ -393,11 +423,11 @@ var thresholdValue = 1; //Mean of difference (Threshold Value)
 function SchoolStore() {
     var listeners = [];
     var path = "./images/";
-    var viewLeft = "1/";
-    var viewRight = "1/";
+    var viewLeft = "2/";
+    var viewRight = "2/";
     var ext = ".png";
-    var image1name = "800_1_00";
-    var image2name = "700_1_00";
+    var image1name = "800_2_00";
+    var image2name = "700_2_00";
 
     var image1src = path + viewLeft + image1name + ext;
     var image2src = path + viewRight + image2name + ext;
@@ -583,13 +613,12 @@ function Quest(q, result) {
 
         //Generate Random View
         var viewNumber = Math.floor(Math.random() * 10) % totalViews + 1;
-        var standardViewNumber = Math.floor(Math.random() * 10) % totalViews + 1;
 
         //Generate Image Name
         console.log("Required Image Size : " + imageSize);
 
         var imageName = imageSize + "_" + viewNumber + "_" + imageIntensity[minusiszeroplusisone];
-        var standardImageName = standardSize + "_" + standardViewNumber + "_" + imageIntensity[minusiszeroplusisone];
+        var standardImageName = standardSize + "_" + standardViewNumber + "_" + standardImageIntensity;
 
         //Check if Image exists
 
