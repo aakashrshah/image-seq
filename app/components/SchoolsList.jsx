@@ -40,6 +40,35 @@ class SchoolsList extends React.Component {
       
     }
 
+    onPreviewImageClick(choice,answer) {
+      var delayMillis = 2000;
+      var successAlert = document.getElementById('myAlertCorrect');
+      var dangerAlert = document.getElementById('myAlertIncorrect');
+      
+      var index = this.props.route.question.id;
+      var workerID = this.props.location.query.workerId;
+      var assignmentID = this.props.location.query.assignmentId
+      var hitID = this.props.location.query.hitId;
+
+      successAlert.style.display = 'none';
+      dangerAlert.style.display = 'none';
+
+      if(choice==answer){
+        //Right Answer
+          successAlert.style.display = 'block';
+          
+      }else if(choice != answer){
+        //Wrong Answer
+          dangerAlert.style.display = 'block';
+      }
+
+      setTimeout(function() {
+          successAlert.style.display = 'none';
+          dangerAlert.style.display = 'none';
+      }, delayMillis);
+      
+    }
+
     render(){
 
       if(this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE"){
@@ -171,20 +200,21 @@ class SchoolsList extends React.Component {
                             Preview Mode : {this.props.route.question.image1.name}
                         </div>
                         <Slider {...settings}>
+
                           <div className="panel-body">
-                              <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")}/>
+                              <input type="image" src={this.props.route.question.image1.src} className="img-responsive center-block" onClick={this.onPreviewImageClick.bind(this,"left")}/>
                           </div>
 
                           <div className="panel-body">
-                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")}/>
+                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onPreviewImageClick.bind(this,"left")}/>
                           </div>
 
                           <div className="panel-body">
-                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")}/>
+                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onPreviewImageClick.bind(this,"left")}/>
                           </div>
 
                           <div className="panel-body">
-                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onPreviewImageClick.bind(this,"left",this.props.route.question.answer)} />
                           </div>
                         </Slider>
                     </div>
@@ -196,13 +226,13 @@ class SchoolsList extends React.Component {
                         </div>
                         <Slider {...settings1}>
                           <div className="panel-body">
-                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")}/>
+                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onPreviewImageClick.bind(this,"right")}/>
                           </div>
                           <div className="panel-body">
-                              <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")}/>
+                              <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onPreviewImageClick.bind(this,"right")}/>
                           </div>
                           <div className="panel-body">
-                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onPreviewImageClick.bind(this,"right",this.props.route.question.answer)} />
                           </div>
                         </Slider>
                     </div>
