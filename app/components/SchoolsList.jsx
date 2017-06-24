@@ -10,19 +10,38 @@ var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 
 class SchoolsList extends React.Component {
 
-    onImageClick(choice) {
+    onImageClick(choice,answer) {
+      var delayMillis = 1000;
+      var successAlert = document.getElementById('myAlertCorrect');
+      var dangerAlert = document.getElementById('myAlertIncorrect');
+      
       var index = this.props.route.question.id;
       var workerID = this.props.location.query.workerId;
       var assignmentID = this.props.location.query.assignmentId
       var hitID = this.props.location.query.hitId;
-      actions.addChoice(workerID,assignmentID,hitID,index,choice);
-    }
-    onFakeClick() {
+
+      successAlert.style.display = 'none';
+      dangerAlert.style.display = 'none';
+
+      if(choice==answer){
+        //Right Answer
+          successAlert.style.display = 'block';
+          
+      }else if(choice != answer){
+        //Wrong Answer
+          dangerAlert.style.display = 'block';
+      }
+
+      setTimeout(function() {
+          successAlert.style.display = 'none';
+          dangerAlert.style.display = 'none';
+          actions.addChoice(workerID,assignmentID,hitID,index,choice);
+      }, delayMillis);
       
     }
 
     render(){
-    
+
       if(this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
          if(this.props.route.question.id < totalQuestion){
@@ -70,7 +89,7 @@ class SchoolsList extends React.Component {
                           </div>
 
                           <div className="panel-body">
-                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")} />
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left",this.props.route.question.answer)} />
                           </div>
                         </Slider>
                     </div>
@@ -88,7 +107,7 @@ class SchoolsList extends React.Component {
                               <input type="image" src={this.props.route.question.image2.src} className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")}/>
                           </div>
                           <div className="panel-body">
-                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right")} />
+                              <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"right",this.props.route.question.answer)} />
                           </div>
                         </Slider>
                     </div>

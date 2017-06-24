@@ -56,16 +56,33 @@ var SchoolsList = function (_React$Component) {
 
     _createClass(SchoolsList, [{
         key: "onImageClick",
-        value: function onImageClick(choice) {
+        value: function onImageClick(choice, answer) {
+            var delayMillis = 1000;
+            var successAlert = document.getElementById('myAlertCorrect');
+            var dangerAlert = document.getElementById('myAlertIncorrect');
+
             var index = this.props.route.question.id;
             var workerID = this.props.location.query.workerId;
             var assignmentID = this.props.location.query.assignmentId;
             var hitID = this.props.location.query.hitId;
-            actions.addChoice(workerID, assignmentID, hitID, index, choice);
+
+            successAlert.style.display = 'none';
+            dangerAlert.style.display = 'none';
+
+            if (choice == answer) {
+                //Right Answer
+                successAlert.style.display = 'block';
+            } else if (choice != answer) {
+                //Wrong Answer
+                dangerAlert.style.display = 'block';
+            }
+
+            setTimeout(function () {
+                successAlert.style.display = 'none';
+                dangerAlert.style.display = 'none';
+                actions.addChoice(workerID, assignmentID, hitID, index, choice);
+            }, delayMillis);
         }
-    }, {
-        key: "onFakeClick",
-        value: function onFakeClick() {}
     }, {
         key: "render",
         value: function render() {
@@ -130,7 +147,7 @@ var SchoolsList = function (_React$Component) {
                                     React.createElement(
                                         "div",
                                         { className: "panel-body" },
-                                        React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "left") })
+                                        React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "left", this.props.route.question.answer) })
                                     )
                                 )
                             )
@@ -162,7 +179,7 @@ var SchoolsList = function (_React$Component) {
                                     React.createElement(
                                         "div",
                                         { className: "panel-body" },
-                                        React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "right") })
+                                        React.createElement("input", { type: "image", src: "Background1.png", className: "img-responsive center-block", onClick: this.onImageClick.bind(this, "right", this.props.route.question.answer) })
                                     )
                                 )
                             )
