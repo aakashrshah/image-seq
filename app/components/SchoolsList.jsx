@@ -5,7 +5,7 @@ var {Line} = require("rc-progress");
 //  var Slider = require('react-slick');
 import Slider from 'react-slick';
 
-var totalQuestion = 40;
+var totalQuestion = 5;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 
 class SchoolsList extends React.Component {
@@ -73,7 +73,7 @@ class SchoolsList extends React.Component {
 
       if(this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
-         if(this.props.route.question.id < totalQuestion){
+        if(this.props.route.question.id < totalQuestion){
 
           var settings = {
             slidesToShow: 1,
@@ -96,7 +96,7 @@ class SchoolsList extends React.Component {
             pauseOnHover:false,
           };
 
-         return(
+          return(
               <div className="row" key={this.props.route.question.id}>
                 <div className="col-md-6">
                     <div className="panel panel-default">
@@ -146,18 +146,20 @@ class SchoolsList extends React.Component {
                 </div>
              </div>
              );
-         }else{
+          }
 
+        else{
+            console.log("Reached Home");
             return(
                 <div className="row">
                     <center>
                         <form name="mturk_form" method="post" id="mturk_form" action={submitLink}>
 
-                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>
+                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>                             
                           
                           <input type="hidden" name="aakash" value="isIndeedCool"/>
 
-                          <input type="submit" value="Submit Your Answers" onClick={event.preventDefault()} className="btn btn-success"/>
+                          <input type="submit" value="Submit Your Answers"  className="btn btn-success"/>
                         </form>
                        <br/>
                        <h2> Thank You. </h2>
@@ -165,9 +167,7 @@ class SchoolsList extends React.Component {
                     </center>
                 </div>
             );
-          }
-             
-         
+        }
       }
       else{
           var settings = {

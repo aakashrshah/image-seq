@@ -1,4 +1,7 @@
 var dispatcher = require("../dispatcher");
+var fs = require('file-system');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
 var submitted = []
 
@@ -22,7 +25,7 @@ var decimalPos = 100.00;
 var standardSize = standard_size * decimalPos
 var standardViewNumber = 2;
 var standardImageIntensity = "00";
-var totalTrials = 40;
+var totalTrials = 5;
 var upperTV = 2.10;
 var lowerTV = 0.09;
 var totalViews = 3;
@@ -94,8 +97,31 @@ function SchoolStore() {
         addQuestion(q);
         console.log(submitted);
         if(submitted.length >= totalTrials){
-            console.log("Test Finished")
-            triggerListeners();   
+            console.log("Test Finished");
+
+            var url = "mongodb://localhost:27017/visionTestDb";
+
+            MongoClient.connect(url, function(err, db) {
+              if (err) throw err;
+              console.log("Database created!");
+              db.close();
+            });
+
+            // var txtFile = "../../server/data/tmp/" + question.question.workerID + ".json";
+            // var blob = new Blob(txtFile,"write");
+            // var jsonse = JSON.stringify(submitted);
+            // fs.closeSync(fs.openSync(workerID + ".json", 'w'));
+
+            // fs.write(workerID + ".json", jsonse, function(err) {
+            //     if(err) {
+            //         return console.log(err);
+            //     }
+
+            //     console.log("The file was saved!");
+            // });
+
+            triggerListeners();
+
         }else{
             //Update Question
             //console.log(question.question.choice)
