@@ -8,6 +8,7 @@ import Slider from 'react-slick';
 var totalQuestion = 5;
 var testQuestions = 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
+var consentFormSubmitLink = "https://";
 
 class SchoolsList extends React.Component {
 
@@ -220,7 +221,7 @@ class SchoolsList extends React.Component {
               return(
                   <div className="row" key={this.props.route.question.id}>
                     <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action={submitLink}>
+                        <form name="mturk_form" method="post" id="mturk_form" action={consentFormSubmitLink}>
 
                           <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>                             
                           
