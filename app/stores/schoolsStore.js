@@ -1,7 +1,4 @@
 var dispatcher = require("../dispatcher");
-var fs = require('file-system');
-var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
 
 var submitted = []
 
@@ -25,12 +22,13 @@ var decimalPos = 100.00;
 var standardSize = standard_size * decimalPos
 var standardViewNumber = 2;
 var standardImageIntensity = "00";
+var intensity = "01";
 var totalTrials = 5;
 var upperTV = 2.10;
 var lowerTV = 0.09;
 var totalViews = 3;
-var imageIntensity = ["00","01"];
 var thresholdValue = 1; //Mean of difference (Threshold Value)
+var selector = Math.floor((Math.random() * 10)) % 2;
 
 function SchoolStore() {
     var listeners = [];
@@ -39,7 +37,7 @@ function SchoolStore() {
     var viewRight = "2/"
     var ext = ".png";
     var image1name = "800_2_00";
-    var image2name = "700_2_00";
+    var image2name = "600_2_01";
 
     var image1src = path + viewLeft + image1name + ext;
     var image2src = path + viewRight + image2name + ext;
@@ -76,7 +74,13 @@ function SchoolStore() {
 
     function changeQuestion(q,result,index){
         // console.log(result + " | " + index);
-        var t = Quest(q,result);
+        var t = Quest(q,result,"");
+        return t;
+    }
+
+    function practiceQuestion(q,index){
+        // console.log(result + " | " + index);
+        var t = Quest(q,true,"practice");
         return t;
     }
 
@@ -85,74 +89,101 @@ function SchoolStore() {
     }
 
     function addChoice(workerID,assignmentID,hitID,index,choice) {
-
-        // console.log("Add Choice : " + index);
         question.question.id = index+1;
         question.question.choice = choice;
         question.question.workerID = workerID;
         question.question.assignmentID = assignmentID;
         question.question.hitID = hitID;
-        var q = JSON.parse(JSON.stringify(question.question));
-        //Submit User's Answer to the Stack
-        addQuestion(q);
-        console.log(submitted);
-        if(submitted.length >= totalTrials){
-            console.log("Test Finished");
 
-            var url = "mongodb://localhost:27017/visionTestDb";
+        if(assignmentID != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
-            MongoClient.connect(url, function(err, db) {
-              if (err) throw err;
-              console.log("Database created!");
-              db.close();
-            });
+            //Submit User's Answer to the Stack
+            var q = JSON.parse(JSON.stringify(question.question));
+            addQuestion(q);
+            console.log(submitted);
 
-            // var txtFile = "../../server/data/tmp/" + question.question.workerID + ".json";
-            // var blob = new Blob(txtFile,"write");
-            // var jsonse = JSON.stringify(submitted);
-            // fs.closeSync(fs.openSync(workerID + ".json", 'w'));
+            if(submitted.length >= totalTrials){
+                console.log("Test Finished");
 
-            // fs.write(workerID + ".json", jsonse, function(err) {
-            //     if(err) {
-            //         return console.log(err);
-            //     }
+                // var url = "mongodb://localhost:27017/visionTestDb";
 
-            //     console.log("The file was saved!");
-            // });
+                // MongoClient.connect(url, function(err, db) {
+                //   if (err) throw err;
+                //   console.log("Database created!");
+                //   db.close();
+                // });
 
-            triggerListeners();
+                // var txtFile = "../../server/data/tmp/" + question.question.workerID + ".json";
+                // var blob = new Blob(txtFile,"write");
+                // var jsonse = JSON.stringify(submitted);
+                // fs.closeSync(fs.openSync(workerID + ".json", 'w'));
+
+                // fs.write(workerID + ".json", jsonse, function(err) {
+                //     if(err) {
+                //         return console.log(err);
+                //     }
+
+                //     console.log("The file was saved!");
+                // });
+
+                triggerListeners();
+
+            }else{
+                //Update Question
+                //console.log(question.question.choice)
+                //console.log(question.question.answer)
+                var answer = question.question.answer;
+                var result = question.question.choice == question.question.answer ? true:false
+                // console.log(result);
+                var images = changeQuestion(q,result,index);
+                // console.log(images)
+                var image1src = path + images[3] + images[0] + ext;
+                var image2src = path + images[4] + images[1] + ext;
+
+                question.question.image1 = {
+                    name: "Image-1",
+                    src:  image1src
+                };
+
+                question.question.image2 = {
+                    name: "Image-2",
+                    src:  image2src
+                };
+
+                question.question.choice = ""
+                question.question.workerID = "";
+                question.question.assignmentID = "";
+                question.question.hitID = "";
+                question.question.answer = images[2];
+                question.activeIndex = "";
+                triggerListeners();   
+            }
 
         }else{
-            //Update Question
-            //console.log(question.question.choice)
-            //console.log(question.question.answer)
-            var answer = question.question.answer;
-            var result = question.question.choice == question.question.answer ? true:false
-            // console.log(result);
-            var images = changeQuestion(q,result,index);
-            // console.log(images)
-            var image1src = path + images[3] + images[0] + ext;
-            var image2src = path + images[4] + images[1] + ext;
+                //Practice Questions
+                var images = practiceQuestion(q,index);
 
-            question.question.image1 = {
-                name: "Image-1",
-                src:  image1src
-            };
+                var image1src = path + images[3] + images[0] + ext;
+                var image2src = path + images[4] + images[1] + ext;
 
-            question.question.image2 = {
-                name: "Image-2",
-                src:  image2src
-            };
+                question.question.image1 = {
+                    name: "Image-1",
+                    src:  image1src
+                };
 
-            question.question.choice = ""
-            question.question.workerID = "";
-            question.question.assignmentID = "";
-            question.question.hitID = "";
-            question.question.answer = images[2];
-            question.activeIndex = "";
-            triggerListeners();   
+                question.question.image2 = {
+                    name: "Image-2",
+                    src:  image2src
+                };
+
+                question.question.choice = ""
+                question.question.workerID = "";
+                question.question.assignmentID = "";
+                question.question.hitID = "";
+                question.question.answer = images[2];
+                question.activeIndex = "";
+                triggerListeners();   
         }
-
     }
 
     function triggerListeners() {
@@ -181,8 +212,24 @@ function SchoolStore() {
 }
 
 
-function Quest(q,result){
-    return Demo(q,result);
+function Quest(q,result,test){
+    if(test == "practice"){
+        var imageSizeArray = [600,1000];
+        var viewNumber = 2;
+        var imageSize = 600;
+        if(selector == 0){
+            imageSize = imageSizeArray[selector+1];
+            selector = 1;
+        }else{
+            imageSize = imageSizeArray[selector-1];
+            selector = 0;
+        }
+        var imageName = generateImageName(viewNumber,imageSize);
+        var standardImageName = generateStandardImageName();
+        return generateImages(imageName,standardImageName,viewNumber,imageSize);
+    }else{
+        return Demo(q,result);
+    }
 
     function getThreshold(x,result){
         var y = x;
@@ -250,20 +297,27 @@ function Quest(q,result){
 
         //Generate Random View
         var viewNumber = (Math.floor((Math.random() * 10)) % totalViews) + 1;
-
-        //Generate Image Name
-        console.log("Required Image Size : " + imageSize)
-
-        var imageName = imageSize + "_" + viewNumber + "_" + imageIntensity[minusiszeroplusisone]
-        var standardImageName = standardSize + "_" + standardViewNumber + "_" + standardImageIntensity
-
-        //Check if Image exists
+        
+        var imageName = generateImageName(viewNumber,imageSize)
+        var standardImageName = generateStandardImageName();
 
         //Insert image in array and determine left or right.
+        return generateImages(imageName,standardImageName,viewNumber,imageSize);
+    }
+
+    function generateImageName(viewNumber,imageSize){
+        return imageSize + "_" + viewNumber + "_" + intensity;
+    }
+
+    function generateStandardImageName(){
+        return standardSize + "_" + standardViewNumber + "_" + standardImageIntensity;
+    }
+
+    function generateImages(imageName,standardImageName,viewNumber,imageSize){
+        var images = [];
         var image1 = imageName;
         var image2 = standardImageName;
 
-        var images = [];
         var leftOrRight = Math.floor((Math.random() * 10)) % 2;
 
         if(leftOrRight == 0){
@@ -282,7 +336,9 @@ function Quest(q,result){
 
         return images
     }
+    
 }
+
 
 function QuestMean(){
 
