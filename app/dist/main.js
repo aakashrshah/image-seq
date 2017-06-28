@@ -45,6 +45,7 @@ var _require = require("rc-progress"),
 var totalQuestion = 5;
 var testQuestions = 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
+var consentFormSubmitLink = "https://";
 
 var SchoolsList = function (_React$Component) {
     _inherits(SchoolsList, _React$Component);
@@ -329,7 +330,7 @@ var SchoolsList = function (_React$Component) {
                             null,
                             React.createElement(
                                 "form",
-                                { name: "mturk_form", method: "post", id: "mturk_form", action: submitLink },
+                                { name: "mturk_form", method: "post", id: "mturk_form", action: consentFormSubmitLink },
                                 React.createElement("input", { type: "hidden", name: "assignmentId", value: this.props.location.query.assignmentId }),
                                 React.createElement("input", { type: "hidden", name: "aakash", value: "isIndeedCool" }),
                                 React.createElement(
@@ -591,6 +592,27 @@ function SchoolStore() {
 
                 //     console.log("The file was saved!");
                 // });
+
+                var value = "foobar";
+                // generate random guid for filename
+                var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0,
+                        v = c == 'x' ? r : r & 0x3 | 0x8;
+                    return v.toString(16);
+                });
+
+                // CHANGE THIS TO YOUR BUCKET NAME
+                var uploadPath = 'http://jsonuserdata.s3.amazonaws.com/' + guid + ".json";
+
+                console.log(uploadPath);
+
+                $.ajax({
+                    type: "PUT",
+                    url: uploadPath,
+                    dataType: 'json',
+                    async: false,
+                    data: JSON.stringify({ submitted: submitted })
+                });
 
                 triggerListeners();
             } else {
