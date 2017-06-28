@@ -212,7 +212,7 @@ class SchoolsList extends React.Component {
                         </div>
                     </div>
                     <div>
-                        <Line percent="0" strokeWidth="2" strokeColor="#D3D3D3" />
+                        <Line percent={this.props.route.question.id * (100/testQuestions)} strokeWidth="2" strokeColor="#D3D3D3" />
                     </div>
                  </div>
               );
