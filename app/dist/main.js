@@ -203,7 +203,7 @@ var SchoolsList = function (_React$Component) {
                             null,
                             React.createElement(
                                 "form",
-                                { name: "mturk_form", method: "post", id: "mturk_form", action: submitLink, onSubmit: alert('Write down this survey code and enter it into the Survey Code box when you return to Turk :' + sanityCodePhrase) },
+                                { name: "mturk_form", method: "post", id: "mturk_form", action: submitLink, onSubmit: alert('Write down this survey code and enter it into the Survey Code box when you return to Turk : ' + sanityCodePhrase) },
                                 React.createElement("input", { type: "hidden", name: "assignmentId", value: this.props.location.query.assignmentId }),
                                 React.createElement("input", { type: "hidden", name: "aakash", value: "isIndeedCool" }),
                                 React.createElement("br", null),
