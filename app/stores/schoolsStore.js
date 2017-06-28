@@ -57,6 +57,7 @@ function SchoolStore() {
             },
             answer: "left",
             choice: "",
+            result: "",
             workerID : "",
             assignmentID : "",
             hitID : ""
@@ -94,7 +95,7 @@ function SchoolStore() {
         question.question.workerID = workerID;
         question.question.assignmentID = assignmentID;
         question.question.hitID = hitID;
-
+        question.question.result = question.question.choice == question.question.answer ? true:false
         if(assignmentID != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
             //Submit User's Answer to the Stack
@@ -267,7 +268,7 @@ function Quest(q,result,test){
         }
         var imageName = generateImageName(viewNumber,imageSize);
         var standardImageName = generateStandardImageName();
-        return generateImages(imageName,standardImageName,viewNumber,imageSize);
+        return generateImages(imageName,standardImageName,viewNumber,imageSize,2);
     }else{
         return Demo(q,result);
     }
@@ -343,7 +344,7 @@ function Quest(q,result,test){
         var standardImageName = generateStandardImageName();
 
         //Insert image in array and determine left or right.
-        return generateImages(imageName,standardImageName,viewNumber,imageSize);
+        return generateImages(imageName,standardImageName,viewNumber,imageSize,thresholdValue);
     }
 
     function generateImageName(viewNumber,imageSize){
@@ -354,7 +355,7 @@ function Quest(q,result,test){
         return standardSize + "_" + standardViewNumber + "_" + standardImageIntensity;
     }
 
-    function generateImages(imageName,standardImageName,viewNumber,imageSize){
+    function generateImages(imageName,standardImageName,viewNumber,imageSize,thresholdValue){
         var images = [];
         var image1 = imageName;
         var image2 = standardImageName;
@@ -374,6 +375,7 @@ function Quest(q,result,test){
             images.push("" + standardViewNumber + "/")    //image[3]
             images.push("" + viewNumber + "/")    //image[4]
         }
+        images.push(thresholdValue) //images[5]
 
         return images
     }

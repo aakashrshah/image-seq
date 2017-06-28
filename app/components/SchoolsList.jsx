@@ -9,6 +9,7 @@ var totalQuestion = 5;
 var testQuestions = 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 var consentFormSubmitLink = "https://";
+var sanityCodePhrase = '5456';
 
 class SchoolsList extends React.Component {
 
@@ -126,12 +127,13 @@ class SchoolsList extends React.Component {
             return(
                 <div className="row" key={this.props.route.question.id}>
                     <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action={submitLink}>
+                        <form name="mturk_form" method="post" id="mturk_form" action={submitLink} onSubmit={alert('Write down this survey code and enter it into the Survey Code box when you return to Turk : ' + sanityCodePhrase)} >
 
                           <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>                             
                           
                           <input type="hidden" name="aakash" value="isIndeedCool"/>
-
+                          
+                          <br/>
                           <input type="submit" value="Submit Your Answers"  className="btn btn-success"/>
                         </form>
                        <br/>

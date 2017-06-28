@@ -46,6 +46,7 @@ var totalQuestion = 5;
 var testQuestions = 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 var consentFormSubmitLink = "https://";
+var sanityCodePhrase = '5456';
 
 var SchoolsList = function (_React$Component) {
     _inherits(SchoolsList, _React$Component);
@@ -202,9 +203,10 @@ var SchoolsList = function (_React$Component) {
                             null,
                             React.createElement(
                                 "form",
-                                { name: "mturk_form", method: "post", id: "mturk_form", action: submitLink },
+                                { name: "mturk_form", method: "post", id: "mturk_form", action: submitLink, onSubmit: alert('Write down this survey code and enter it into the Survey Code box when you return to Turk :' + sanityCodePhrase) },
                                 React.createElement("input", { type: "hidden", name: "assignmentId", value: this.props.location.query.assignmentId }),
                                 React.createElement("input", { type: "hidden", name: "aakash", value: "isIndeedCool" }),
+                                React.createElement("br", null),
                                 React.createElement("input", { type: "submit", value: "Submit Your Answers", className: "btn btn-success" })
                             ),
                             React.createElement("br", null),
@@ -318,7 +320,7 @@ var SchoolsList = function (_React$Component) {
                         React.createElement(
                             "div",
                             null,
-                            React.createElement(Line, { percent: "0", strokeWidth: "2", strokeColor: "#D3D3D3" })
+                            React.createElement(Line, { percent: this.props.route.question.id * (100 / testQuestions), strokeWidth: "2", strokeColor: "#D3D3D3" })
                         )
                     );
                 } else {
@@ -524,6 +526,7 @@ function SchoolStore() {
             },
             answer: "left",
             choice: "",
+            result: "",
             workerID: "",
             assignmentID: "",
             hitID: ""
@@ -561,7 +564,7 @@ function SchoolStore() {
         question.question.workerID = workerID;
         question.question.assignmentID = assignmentID;
         question.question.hitID = hitID;
-
+        question.question.result = question.question.choice == question.question.answer ? true : false;
         if (assignmentID != "ASSIGNMENT_ID_NOT_AVAILABLE") {
 
             //Submit User's Answer to the Stack
@@ -593,16 +596,14 @@ function SchoolStore() {
                 //     console.log("The file was saved!");
                 // });
 
-                var value = "foobar";
                 // generate random guid for filename
-                var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                    var r = Math.random() * 16 | 0,
-                        v = c == 'x' ? r : r & 0x3 | 0x8;
-                    return v.toString(16);
-                });
+                // var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                //     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                //     return v.toString(16);
+                // });
 
                 // CHANGE THIS TO YOUR BUCKET NAME
-                var uploadPath = 'http://jsonuserdata.s3.amazonaws.com/' + guid + ".json";
+                var uploadPath = 'http://jsonuserdata.s3.amazonaws.com/' + workerID + ".json";
                 console.log(uploadPath);
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
@@ -619,7 +620,7 @@ function SchoolStore() {
                     xhr = null;
                 }
 
-                xhr.setRequestHeader('Access-Control-Allow-Origin', 'value');
+                xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://sentien.tech');
 
                 xhr.onload = function () {
                     var responseText = xhr.responseText;
@@ -631,7 +632,7 @@ function SchoolStore() {
                     console.log('There was an error!');
                 };
 
-                xhr.send();
+                xhr.send(JSON.stringify(submitted));
 
                 triggerListeners();
             } else {
@@ -730,7 +731,7 @@ function Quest(q, result, test) {
         }
         var imageName = generateImageName(viewNumber, imageSize);
         var standardImageName = generateStandardImageName();
-        return generateImages(imageName, standardImageName, viewNumber, imageSize);
+        return generateImages(imageName, standardImageName, viewNumber, imageSize, 2);
     } else {
         return Demo(q, result);
     }
@@ -806,7 +807,7 @@ function Quest(q, result, test) {
         var standardImageName = generateStandardImageName();
 
         //Insert image in array and determine left or right.
-        return generateImages(imageName, standardImageName, viewNumber, imageSize);
+        return generateImages(imageName, standardImageName, viewNumber, imageSize, thresholdValue);
     }
 
     function generateImageName(viewNumber, imageSize) {
@@ -817,7 +818,7 @@ function Quest(q, result, test) {
         return standardSize + "_" + standardViewNumber + "_" + standardImageIntensity;
     }
 
-    function generateImages(imageName, standardImageName, viewNumber, imageSize) {
+    function generateImages(imageName, standardImageName, viewNumber, imageSize, thresholdValue) {
         var images = [];
         var image1 = imageName;
         var image2 = standardImageName;
@@ -837,6 +838,7 @@ function Quest(q, result, test) {
             images.push("" + standardViewNumber + "/"); //image[3]
             images.push("" + viewNumber + "/"); //image[4]
         }
+        images.push(thresholdValue); //images[5]
 
         return images;
     }
