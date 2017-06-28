@@ -153,7 +153,7 @@ function SchoolStore() {
                   }
          
                 xhr.setRequestHeader(
-                    'Access-Control-Allow-Origin', 'https://sentien.tech');
+                    'Access-Control-Allow-Origin', 'http://sentien.tech');
 
                 xhr.onload = function() {
                 var responseText = xhr.responseText;
