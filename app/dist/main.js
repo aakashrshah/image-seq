@@ -603,16 +603,35 @@ function SchoolStore() {
 
                 // CHANGE THIS TO YOUR BUCKET NAME
                 var uploadPath = 'http://jsonuserdata.s3.amazonaws.com/' + guid + ".json";
-
                 console.log(uploadPath);
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    // Check if the XMLHttpRequest object has a "withCredentials" property.
+                    // "withCredentials" only exists on XMLHTTPRequest2 objects.
+                    xhr.open('PUT', uploadPath, true);
+                } else if (typeof XDomainRequest != "undefined") {
+                    // Otherwise, check if XDomainRequest.
+                    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+                    xhr = new XDomainRequest();
+                    xhr.open('PUT', uploadPath);
+                } else {
+                    // Otherwise, CORS is not supported by the browser.
+                    xhr = null;
+                }
 
-                $.ajax({
-                    type: "PUT",
-                    url: uploadPath,
-                    dataType: 'json',
-                    async: false,
-                    data: JSON.stringify({ submitted: submitted })
-                });
+                xhr.setRequestHeader('Access-Control-Allow-Origin', 'value');
+
+                xhr.onload = function () {
+                    var responseText = xhr.responseText;
+                    console.log(responseText);
+                    // process the response.
+                };
+
+                xhr.onerror = function () {
+                    console.log('There was an error!');
+                };
+
+                xhr.send();
 
                 triggerListeners();
             } else {
