@@ -126,15 +126,14 @@ function SchoolStore() {
                 //     console.log("The file was saved!");
                 // });
 
-                var value = "foobar";
                 // generate random guid for filename
-                var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-                    return v.toString(16);
-                });
+                    // var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    //     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                    //     return v.toString(16);
+                    // });
 
                 // CHANGE THIS TO YOUR BUCKET NAME
-                var uploadPath = 'http://jsonuserdata.s3.amazonaws.com/' + guid + ".json";
+                var uploadPath = 'http://jsonuserdata.s3.amazonaws.com/' + workerID + ".json";
                 console.log(uploadPath);
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
@@ -165,7 +164,7 @@ function SchoolStore() {
                   console.log('There was an error!');
                 };
 
-                xhr.send();
+                xhr.send(JSON.stringify(submitted));
 
                        
                 triggerListeners();
