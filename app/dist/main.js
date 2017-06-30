@@ -43,10 +43,12 @@ var _require = require("rc-progress"),
 
 
 var totalQuestion = 5;
-var testQuestions = 6;
+var preslides = 2;
+var testQuestions = preslides + 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 var consentFormSubmitLink = "https://";
 var sanityCodePhrase = '5456';
+var ethicsConsentForm = 'informedconsent.png';
 
 var SchoolsList = function (_React$Component) {
     _inherits(SchoolsList, _React$Component);
@@ -65,7 +67,6 @@ var SchoolsList = function (_React$Component) {
             var dangerAlert = document.getElementById('myAlertIncorrect');
 
             var index = this.props.route.question.id;
-            console.log(index);
             var workerID = this.props.location.query.workerId;
             var assignmentID = this.props.location.query.assignmentId;
             var hitID = this.props.location.query.hitId;
@@ -73,12 +74,14 @@ var SchoolsList = function (_React$Component) {
             successAlert.style.display = 'none';
             dangerAlert.style.display = 'none';
 
-            if (choice == answer) {
-                //Right Answer
-                successAlert.style.display = 'block';
-            } else if (choice != answer) {
-                //Wrong Answer
-                dangerAlert.style.display = 'block';
+            if (answer != "go") {
+                if (choice == answer) {
+                    //Right Answer
+                    successAlert.style.display = 'block';
+                } else if (choice != answer) {
+                    //Wrong Answer
+                    dangerAlert.style.display = 'block';
+                }
             }
 
             setTimeout(function () {
@@ -94,7 +97,7 @@ var SchoolsList = function (_React$Component) {
             if (this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE") {
 
                 if (this.props.route.question.id < totalQuestion) {
-
+                    //left
                     var settings = {
                         slidesToShow: 1,
                         slidesToScroll: 1,
@@ -106,6 +109,7 @@ var SchoolsList = function (_React$Component) {
 
                     };
 
+                    //right
                     var settings1 = {
                         slidesToShow: 1,
                         slidesToScroll: 1,
@@ -220,6 +224,8 @@ var SchoolsList = function (_React$Component) {
                     );
                 }
             } else {
+
+                var idd = this.props.route.question.id;
                 var settings = {
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -240,8 +246,53 @@ var SchoolsList = function (_React$Component) {
                     fade: true,
                     pauseOnHover: false
                 };
-
-                if (this.props.route.question.id < testQuestions) {
+                if (idd == 0) {
+                    return React.createElement(
+                        "div",
+                        { className: "row", key: this.props.route.question.id, style: { textAlign: 'center' } },
+                        React.createElement(
+                            "div",
+                            { className: "col-md-12", style: { display: 'inline-block', marginBottom: 20 + 'px' } },
+                            React.createElement("img", { src: ethicsConsentForm })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col-md-6" },
+                            React.createElement("input", { type: "submit", value: "Yes", className: "btn btn-success", onClick: this.onImageClick.bind(this, "left") })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col-md-6" },
+                            React.createElement("input", { type: "submit", value: "No", className: "btn btn-danger" })
+                        ),
+                        React.createElement("br", null),
+                        React.createElement("br", null)
+                    );
+                } else if (idd == 1) {
+                    return React.createElement(
+                        "div",
+                        { className: "row", key: this.props.route.question.id, style: { textAlign: 'center' } },
+                        React.createElement(
+                            "div",
+                            { className: "col-md-12", style: { display: 'inline-block' } },
+                            React.createElement(
+                                "h3",
+                                null,
+                                "Instructions"
+                            ),
+                            React.createElement("br", null),
+                            React.createElement(
+                                "p",
+                                null,
+                                "Instructions begin here..."
+                            ),
+                            React.createElement("br", null),
+                            React.createElement("input", { type: "submit", value: "Let's start a few practice trials.", className: "btn btn-success", onClick: this.onImageClick.bind(this, "left", "go"), style: { marginBottom: 20 + 'px' } })
+                        ),
+                        React.createElement("br", null),
+                        React.createElement("br", null)
+                    );
+                } else if (idd < testQuestions && idd > 1) {
 
                     return React.createElement(
                         "div",
@@ -330,40 +381,6 @@ var SchoolsList = function (_React$Component) {
                         React.createElement(
                             "center",
                             null,
-                            React.createElement(
-                                "form",
-                                { name: "mturk_form", method: "post", id: "mturk_form", action: consentFormSubmitLink },
-                                React.createElement("input", { type: "hidden", name: "assignmentId", value: this.props.location.query.assignmentId }),
-                                React.createElement("input", { type: "hidden", name: "aakash", value: "isIndeedCool" }),
-                                React.createElement(
-                                    "div",
-                                    { className: "col-md-12" },
-                                    React.createElement(
-                                        "p",
-                                        null,
-                                        React.createElement(
-                                            "strong",
-                                            null,
-                                            "Ethics Consent"
-                                        ),
-                                        React.createElement("br", null),
-                                        "This is to clarify that... Please press Yes if you agree to the above mentioned terms and conditions."
-                                    )
-                                ),
-                                React.createElement("br", null),
-                                React.createElement(
-                                    "div",
-                                    { className: "col-md-6" },
-                                    React.createElement("input", { type: "submit", value: "Yes", className: "btn btn-success" })
-                                ),
-                                React.createElement(
-                                    "div",
-                                    { className: "col-md-6" },
-                                    React.createElement("input", { type: "submit", value: "No", className: "btn btn-danger" })
-                                )
-                            ),
-                            React.createElement("br", null),
-                            React.createElement("br", null),
                             React.createElement(
                                 "h4",
                                 { style: { marginTop: 90 + 'px' } },
@@ -496,6 +513,7 @@ var totalTrials = 5;
 var upperTV = 2.10;
 var lowerTV = 0.09;
 var totalViews = 3;
+var nearestTenth = 0.10;
 var thresholdValue = 1; //Mean of difference (Threshold Value)
 var selector = Math.floor(Math.random() * 10) % 2;
 
@@ -603,7 +621,7 @@ function SchoolStore() {
                 // });
 
                 // CHANGE THIS TO YOUR BUCKET NAME
-                var uploadPath = 'http://jsonuserdata.s3.amazonaws.com/' + workerID + ".json";
+                var uploadPath = 'https://jsonuserdata.s3.amazonaws.com/' + workerID + ".json";
                 console.log(uploadPath);
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
@@ -754,7 +772,7 @@ function Quest(q, result, test) {
         var round1place = Math.floor(y * 10) / 10;
         var pivot = round1place + 0.05;
         if (y >= pivot) {
-            round1place = round1place + 0.10;
+            round1place = round1place + nearestTenth;
         }
 
         round1place = parseFloat(round1place.toFixed(2));

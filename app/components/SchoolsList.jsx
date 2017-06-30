@@ -6,10 +6,12 @@ var {Line} = require("rc-progress");
 import Slider from 'react-slick';
 
 var totalQuestion = 5;
-var testQuestions = 6;
+var preslides = 2;
+var testQuestions = preslides + 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 var consentFormSubmitLink = "https://";
 var sanityCodePhrase = '5456';
+var ethicsConsentForm = 'informedconsent.png'
 
 class SchoolsList extends React.Component {
 
@@ -19,23 +21,24 @@ class SchoolsList extends React.Component {
       var dangerAlert = document.getElementById('myAlertIncorrect');
       
       var index = this.props.route.question.id;
-      console.log(index);
       var workerID = this.props.location.query.workerId;
       var assignmentID = this.props.location.query.assignmentId
       var hitID = this.props.location.query.hitId;
 
       successAlert.style.display = 'none';
       dangerAlert.style.display = 'none';
-
-      if(choice==answer){
-        //Right Answer
-          successAlert.style.display = 'block';
-          
-      }else if(choice != answer){
-        //Wrong Answer
-          dangerAlert.style.display = 'block';
+      
+      if(answer!="go"){
+        if(choice==answer){
+          //Right Answer
+            successAlert.style.display = 'block';
+            
+        }else if(choice != answer){
+          //Wrong Answer
+            dangerAlert.style.display = 'block';
+        }
       }
-
+      
       setTimeout(function() {
           successAlert.style.display = 'none';
           dangerAlert.style.display = 'none';
@@ -49,7 +52,7 @@ class SchoolsList extends React.Component {
       if(this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
         if(this.props.route.question.id < totalQuestion){
-
+          //left
           var settings = {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -61,6 +64,7 @@ class SchoolsList extends React.Component {
 
           };
 
+          //right
           var settings1 = {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -145,6 +149,8 @@ class SchoolsList extends React.Component {
         }
       }
       else{
+
+          var idd = this.props.route.question.id;
           var settings = {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -165,8 +171,42 @@ class SchoolsList extends React.Component {
             fade:true,
             pauseOnHover:false
           };
-          
-          if(this.props.route.question.id < testQuestions){
+          if(idd == 0){
+              return(
+                  <div className="row" key={this.props.route.question.id} style={{textAlign: 'center'}}>
+                          <div className="col-md-12" style={{display: 'inline-block',marginBottom: 20 + 'px'}}>
+                              <img src={ethicsConsentForm} />
+                          </div>
+
+                          <div className="col-md-6">
+                            <input type="submit" value="Yes"  className="btn btn-success" onClick={this.onImageClick.bind(this,"left")}/>
+                          </div>
+
+                          <div className="col-md-6">
+                            <input type="submit" value="No"  className="btn btn-danger"/>
+                          </div>
+                          <br/><br/>
+
+                   </div>
+              );
+          }
+          else if(idd == 1){
+              return(
+                  <div className="row" key={this.props.route.question.id} style={{textAlign: 'center'}}>
+                    <div className="col-md-12" style={{display: 'inline-block'}}>
+                        <h3>Instructions</h3>
+
+                        <br/>
+                        <p>Instructions begin here...</p>
+                        <br/>
+
+                        <input type="submit" value="Let's start a few practice trials."  className="btn btn-success" onClick={this.onImageClick.bind(this,"left","go")} style={{marginBottom: 20 + 'px'}}/>
+                    </div>
+                    <br/><br/>
+                   </div>
+              );
+          }
+          else if(idd < testQuestions && idd > 1){
 
               return(
                 <div className="row" key={this.props.route.question.id}>
@@ -219,37 +259,15 @@ class SchoolsList extends React.Component {
                  </div>
               );
 
-          }else{
+          }
+          else{
               return(
                   <div className="row" key={this.props.route.question.id}>
                     <center>
-                        <form name="mturk_form" method="post" id="mturk_form" action={consentFormSubmitLink}>
-
-                          <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>                             
-                          
-                          <input type="hidden" name="aakash" value="isIndeedCool"/>
-
-                          <div className="col-md-12">
-                          <p><strong>Ethics Consent</strong><br/>This is to clarify that... 
-                              Please press Yes if you agree to the above mentioned terms and conditions.
-                          </p>
-
-                          </div>
-                          <br/>
-                          <div className="col-md-6">
-                          <input type="submit" value="Yes"  className="btn btn-success"/>
-                          </div>
-
-                          <div className="col-md-6">
-                          <input type="submit" value="No"  className="btn btn-danger"/>
-                          </div>
-                        </form>
-                       <br/>
-                       <br/>
                        <h4 style={{marginTop: 90 + 'px'}}> Please Click on the <span className="label label-warning">Accept Hit</span> button on the top, to start the experiment. </h4>
                        <br/>
                     </center>
-                </div>
+                  </div>
               );
           }
       }

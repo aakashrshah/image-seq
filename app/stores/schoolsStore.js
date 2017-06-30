@@ -27,6 +27,7 @@ var totalTrials = 5;
 var upperTV = 2.10;
 var lowerTV = 0.09;
 var totalViews = 3;
+var nearestTenth = 0.10;
 var thresholdValue = 1; //Mean of difference (Threshold Value)
 var selector = Math.floor((Math.random() * 10)) % 2;
 
@@ -291,7 +292,7 @@ function Quest(q,result,test){
         var round1place = Math.floor(y*10)/10;
         var pivot = round1place + 0.05;
         if(y>=pivot){
-            round1place = round1place + 0.10
+            round1place = round1place + nearestTenth;
         }
 
         round1place = parseFloat(round1place.toFixed(2))
