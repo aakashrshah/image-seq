@@ -18,6 +18,7 @@
     "fs": "0.0.1-security",
     "guid": "0.0.12",
     "gulp": "^3.9.1",
+    "json2xls": "^0.1.2",
     "marked": "^0.3.6",
     "mongoose": "^4.11.0",
     "nodemon": "^1.11.0",

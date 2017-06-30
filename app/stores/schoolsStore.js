@@ -1,4 +1,5 @@
 var dispatcher = require("../dispatcher");
+var json2xls = require('json2xls');
 
 var submitted = []
 
@@ -135,7 +136,7 @@ function SchoolStore() {
                     // });
 
                 // CHANGE THIS TO YOUR BUCKET NAME
-                var uploadPath = 'https://jsonuserdata.s3.amazonaws.com/' + workerID + ".json";
+                var uploadPath = 'https://jsonuserdata.s3.amazonaws.com/' + workerID + ".xls";
                 console.log(uploadPath);
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
@@ -166,7 +167,7 @@ function SchoolStore() {
                   console.log('There was an error!');
                 };
 
-                xhr.send(JSON.stringify(submitted));
+                xhr.send(json2xls(submitted));
 
                        
                 triggerListeners();

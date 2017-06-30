@@ -27,7 +27,7 @@ class SchoolsList extends React.Component {
 
       successAlert.style.display = 'none';
       dangerAlert.style.display = 'none';
-      
+
       if(answer!="go"){
         if(choice==answer){
           //Right Answer
@@ -57,7 +57,7 @@ class SchoolsList extends React.Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 1300,
+            autoplaySpeed: 1500,
             infinite:false,
             fade:true,
             pauseOnHover:false,
@@ -69,7 +69,7 @@ class SchoolsList extends React.Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 2000,
+            autoplaySpeed: 1600,
             infinite:false,
             fade:true,
             pauseOnHover:false,
@@ -92,9 +92,7 @@ class SchoolsList extends React.Component {
                               <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")}/>
                           </div>
 
-                          <div className="panel-body">
-                              <input type="image" src="Background.jpg" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left")}/>
-                          </div>
+                          
 
                           <div className="panel-body">
                               <input type="image" src="Background1.png" className="img-responsive center-block" onClick={this.onImageClick.bind(this,"left",this.props.route.question.answer)} />
