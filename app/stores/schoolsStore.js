@@ -1,5 +1,4 @@
 var dispatcher = require("../dispatcher");
-var json2xls = require('json2xls');
 
 var submitted = []
 
@@ -24,7 +23,7 @@ var standardSize = standard_size * decimalPos
 var standardViewNumber = 2;
 var standardImageIntensity = "00";
 var intensity = "01";
-var totalTrials = 5;
+var totalTrials = 40;
 var upperTV = 2.10;
 var lowerTV = 0.09;
 var totalViews = 3;
@@ -136,7 +135,7 @@ function SchoolStore() {
                     // });
 
                 // CHANGE THIS TO YOUR BUCKET NAME
-                var uploadPath = 'https://jsonuserdata.s3.amazonaws.com/' + workerID + ".xls";
+                var uploadPath = 'https://jsonuserdata.s3.amazonaws.com/' + workerID + ".json";
                 console.log(uploadPath);
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
@@ -167,7 +166,7 @@ function SchoolStore() {
                   console.log('There was an error!');
                 };
 
-                xhr.send(json2xls(submitted));
+                xhr.send(JSON.stringify(submitted));
 
                        
                 triggerListeners();

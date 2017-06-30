@@ -5,7 +5,7 @@ var {Line} = require("rc-progress");
 //  var Slider = require('react-slick');
 import Slider from 'react-slick';
 
-var totalQuestion = 5;
+var totalQuestion = 40;
 var preslides = 2;
 var testQuestions = preslides + 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
