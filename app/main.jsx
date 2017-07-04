@@ -8,7 +8,6 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
 var SchoolsList = require("./components/SchoolsList.jsx");
-var ThankYou = require("./components/ThankYou.jsx");
 var schoolsStore = require("./stores/schoolsStore");
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
