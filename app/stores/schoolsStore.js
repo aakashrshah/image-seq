@@ -135,7 +135,7 @@ function SchoolStore() {
                     // });
 
                 // CHANGE THIS TO YOUR BUCKET NAME
-                var uploadPath = 'https://jsonuserdata.s3.amazonaws.com/' + workerID + ".json";
+                var uploadPath = 'https://jsonuserdata1.s3.amazonaws.com/' + workerID + ".json";
                 console.log(uploadPath);
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
