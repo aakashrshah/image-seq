@@ -1,3 +1,10 @@
+/* 
+ *@author   Aakash Shah (aakashrshah.github.io)
+ *@version  1.1
+ *@since    node v4.2.6, npm v3.5.2
+ *@github   https://github.com/aakashrshah/image-seq
+ */
+
 var dispatcher = require("../dispatcher");
 
 var submitted = []
@@ -102,41 +109,13 @@ function SchoolStore() {
             //Submit User's Answer to the Stack
             var q = JSON.parse(JSON.stringify(question.question));
             addQuestion(q);
-            console.log(submitted);
+            //console.log(submitted);
 
-            if(submitted.length >= totalTrials){
+            if(submitted.length >= totalTrials && workerID != null){
                 console.log("Test Finished");
-
-                // var url = "mongodb://localhost:27017/visionTestDb";
-
-                // MongoClient.connect(url, function(err, db) {
-                //   if (err) throw err;
-                //   console.log("Database created!");
-                //   db.close();
-                // });
-
-                // var txtFile = "../../server/data/tmp/" + question.question.workerID + ".json";
-                // var blob = new Blob(txtFile,"write");
-                // var jsonse = JSON.stringify(submitted);
-                // fs.closeSync(fs.openSync(workerID + ".json", 'w'));
-
-                // fs.write(workerID + ".json", jsonse, function(err) {
-                //     if(err) {
-                //         return console.log(err);
-                //     }
-
-                //     console.log("The file was saved!");
-                // });
-
-                // generate random guid for filename
-                    // var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                    //     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-                    //     return v.toString(16);
-                    // });
-
                 // CHANGE THIS TO YOUR BUCKET NAME
                 var uploadPath = 'https://jsonuserdata1.s3.amazonaws.com/' + workerID + ".json";
-                console.log(uploadPath);
+                //console.log(uploadPath);
                 var xhr = new XMLHttpRequest();
                 if ("withCredentials" in xhr) {
                     // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -315,7 +294,7 @@ function Quest(q,result,test){
             thresholdValue = 0.10;
         }
 
-        console.log(q.id + " Trial was " + result + ". Next Trial TV : " + thresholdValue)
+        //console.log(q.id + " Trial was " + result + ". Next Trial TV : " + thresholdValue)
 
         //Random Sign Generator
         var sign =   ""
@@ -383,24 +362,4 @@ function Quest(q,result,test){
     
 }
 
-
-function QuestMean(){
-
-}
-
-function QuestSd(){
-
-}
-
-function QuestRecompute(){
-
-}
-
-function QuestQuantile(){
-
-}
-
-function QuestUpdate(){
-
-}
 module.exports = SchoolStore();

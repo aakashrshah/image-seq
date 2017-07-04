@@ -1,3 +1,10 @@
+/* 
+ *@author   Aakash Shah (aakashrshah.github.io)
+ *@version  1.1
+ *@since    node v4.2.6, npm v3.5.2
+ *@github   https://github.com/aakashrshah/image-seq
+ */
+
 var React = require("react");
 var ReactDOM = require("react-dom");
 var SchoolsList = require("./components/SchoolsList.jsx");
