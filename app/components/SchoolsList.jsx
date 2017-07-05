@@ -18,7 +18,7 @@ var preslides = 2;
 var testQuestions = preslides + 6;
 var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
 var consentFormSubmitLink = "https://";
-var sanityCodePhrase = '5456';
+var sanityCodePhrase = '5455’;
 var ethicsConsentForm = 'informedconsent.png'
 
 class SchoolsList extends React.Component {
