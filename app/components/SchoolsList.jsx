@@ -203,7 +203,7 @@ class SchoolsList extends React.Component {
                         <h3>Instructions</h3>
 
                         <br/>
-                        <p>Instructions begin here...</p>
+                        <input type="image" src="2AFC_walls_instructions.jpg" className="img-responsive center-block" />
                         <br/>
 
                         <input type="submit" value="Let's start a few practice trials."  className="btn btn-success" onClick={this.onImageClick.bind(this,"left","go")} style={{marginBottom: 20 + 'px'}}/>
