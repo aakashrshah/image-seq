@@ -24,6 +24,9 @@ var QuestStruct = {
     dim : 500
 }
 
+var maxSize = 11
+var standardSize = 8
+var standardMaxDifference = maxSize - standardSize
 var standard_size = 8.0;
 var decimalPos = 100.00;
 var standardSize = standard_size * decimalPos
@@ -31,7 +34,7 @@ var standardViewNumber = 2;
 var standardImageIntensity = "00";
 var intensity = "01";
 var totalTrials = 40;
-var upperTV = 2.10;
+var upperTV = standardMaxDifference + 0.10
 var lowerTV = 0.09;
 var totalViews = 3;
 var nearestTenth = 0.10;
@@ -45,7 +48,7 @@ function SchoolStore() {
     var viewRight = "2/"
     var ext = ".png";
     var image1name = "800_2_00";
-    var image2name = "600_2_01";
+    var image2name = "500_2_01";
 
     var image1src = path + viewLeft + image1name + ext;
     var image2src = path + viewRight + image2name + ext;
@@ -286,8 +289,8 @@ function Quest(q,result,test){
         thresholdValue = getThreshold(x,result); 
 
         //Check the ranges of the Threshold Values
-        if(thresholdValue >=2){
-            thresholdValue = 2;
+        if(thresholdValue >= standardMaxDifference){
+            thresholdValue = standardMaxDifference;
         }
 
         if(thresholdValue <= 0){
