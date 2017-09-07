@@ -140,7 +140,7 @@ class SchoolsList extends React.Component {
                         <form name="mturk_form" method="post" id="mturk_form" action={submitLink} onSubmit={alert('Write down this survey code and enter it into the Survey Code box when you return to Turk : ' + sanityCodePhrase)} >
 
                           <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>                             
-                          
+                          <input type="text" name="sanityCodePhrase" value=""/> 
                           <input type="hidden" name="aakash" value="isIndeedCool"/>
                           
                           <br/>

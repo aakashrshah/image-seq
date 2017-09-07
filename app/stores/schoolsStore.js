@@ -239,9 +239,9 @@ function SchoolStore() {
 
 function Quest(q,result,test){
     if(test == "practice"){
-        var imageSizeArray = [600,1000];
+        var imageSizeArray = [500,1100];
         var viewNumber = 2;
-        var imageSize = 600;
+        var imageSize = 500;
         if(selector == 0){
             imageSize = imageSizeArray[selector+1];
             selector = 1;
@@ -251,7 +251,7 @@ function Quest(q,result,test){
         }
         var imageName = generateImageName(viewNumber,imageSize);
         var standardImageName = generateStandardImageName();
-        return generateImages(imageName,standardImageName,viewNumber,imageSize,2);
+        return generateImages(imageName,standardImageName,viewNumber,imageSize,standardMaxDifference);
     }else{
         return Demo(q,result);
     }
