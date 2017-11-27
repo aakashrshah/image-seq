@@ -16,7 +16,7 @@ import Slider from 'react-slick';
 var totalQuestion = 40;
 var preslides = 2;
 var testQuestions = preslides + 6;
-var submitLink = "https://workersandbox.mturk.com/mturk/externalSubmit";
+var submitLink = "https://www.mturk.com/mturk/externalSubmit";
 var consentFormSubmitLink = "https://";
 var sanityCodePhrase = "5455";
 var ethicsConsentForm = 'informedconsent.png'
@@ -140,8 +140,7 @@ class SchoolsList extends React.Component {
                         <form name="mturk_form" method="post" id="mturk_form" action={submitLink} onSubmit={alert('Write down this survey code and enter it into the Survey Code box when you return to Turk : ' + sanityCodePhrase)} >
 
                           <input type="hidden" name="assignmentId" value={this.props.location.query.assignmentId}/>                             
-                          <input type="text" name="sanityCodePhrase" value=""/> 
-                          <input type="hidden" name="aakash" value="isIndeedCool"/>
+                          //<input type="hidden" name="aakash" value="isIndeedCool"/>
                           
                           <br/>
                           <input type="submit" value="Submit Your Answers"  className="btn btn-success"/>
