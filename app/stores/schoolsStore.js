@@ -48,7 +48,7 @@ function SchoolStore() {
     var viewRight = "2/"
     var ext = ".png";
     var image1name = "800_2_00";
-    var image2name = "500_2_01";
+    var image2name = "500_2_00";
 
     var image1src = path + viewLeft + image1name + ext;
     var image2src = path + viewRight + image2name + ext;
