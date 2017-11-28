@@ -22,7 +22,8 @@ schoolsStore.onChange(function(question){
 });
 
 function render(){
-	    console.log(_question.question);
+	    const history = createHistory();
+	     console.log(history);
 	    ReactDOM.render(
 		    <Router history={browserHistory}>
 		    	<Route path="/" component={SchoolsList} question={_question.question}/>
