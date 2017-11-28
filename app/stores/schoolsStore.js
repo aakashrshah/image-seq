@@ -222,6 +222,7 @@ function SchoolStore() {
         if (split[0] === "question") {
             switch (split[1]) {
                 case "addChoice":
+                    console.log(payload.workerID,payload.assignmentID,payload.hitID,payload.index,payload.choice);
                   addChoice(payload.workerID,payload.assignmentID,payload.hitID,payload.index,payload.choice);
                   break;
                 default:
