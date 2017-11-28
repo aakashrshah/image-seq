@@ -136,7 +136,7 @@ function SchoolStore() {
                   }
          
                 xhr.setRequestHeader(
-                    'Access-Control-Allow-Origin', 'http://sentien.tech');
+                    'Access-Control-Allow-Origin', 'http://brain-nav.com');
 
                 xhr.onload = function() {
                 var responseText = xhr.responseText;
