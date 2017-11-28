@@ -57,6 +57,8 @@ class SchoolsList extends React.Component {
 
     render(){
         console.log(this.props.location);
+        console.log(window.location.search);
+        
       if(this.props.location.query.assignmentId != "ASSIGNMENT_ID_NOT_AVAILABLE"){
 
         if(this.props.route.question.id < totalQuestion){
